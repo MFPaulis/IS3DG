@@ -11,7 +11,6 @@ public class CharacterMovement : MonoBehaviour
     PathFinding pathFinding;
     Energy energy;
     bool isMoving = false;
-    int closeDistance;
 
     private void Start()
     {

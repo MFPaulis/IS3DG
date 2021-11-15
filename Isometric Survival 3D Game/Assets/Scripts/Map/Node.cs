@@ -48,9 +48,4 @@ public class Node : MonoBehaviour
         return 0;
     }
 
-    private void OnMouseUpAsButton()
-    {
-        character.MoveToPoint(x, z);
-    }
-
 }

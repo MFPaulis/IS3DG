@@ -44,15 +44,6 @@ public class Map : MonoBehaviour
                 Clean(i, j);
             }
         }
-        /*
-        for (int i = startPos.x; i < startPos.x + 5; i++)
-        {
-            for (int j = startPos.y + 2; j < startPos.y + 5; j++)
-            {
-                blocks[i, j].GetComponent<Node>().walkable = false;
-            }
-        }*/
-        
     }
 
     public void Discover(int x, int z)
