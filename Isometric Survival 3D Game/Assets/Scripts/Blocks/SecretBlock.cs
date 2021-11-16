@@ -64,6 +64,9 @@ public class SecretBlock : MonoBehaviour
                 if (!map.GetNode(lastNode.x, lastNode.z).walkable)
                 {
                     characterMovement.MoveToPoint(secondToLastNode.x, secondToLastNode.z);
+                } else
+                {
+                    characterMovement.MoveToPoint(lastNode.x, lastNode.z);
                 }
                 AddNeighbours();
                 Destroy(gameObject);

@@ -7,14 +7,17 @@ public class Sleeping : MonoBehaviour
     Energy energy;
     Map map;
     CharacterMovement characterMovement;
+    Life life;
     [SerializeField] float energyOutside = 100;
     [SerializeField] float energyInside = 200;
+    [SerializeField] float decreasedLife = 40;
     // Start is called before the first frame update
     void Start()
     {
         energy = FindObjectOfType<Energy>();
         map = FindObjectOfType<Map>();
         characterMovement = FindObjectOfType<CharacterMovement>();
+        life = FindObjectOfType<Life>();
     }
 
     // Update is called once per frame
@@ -32,6 +35,12 @@ public class Sleeping : MonoBehaviour
         } else
         {
             energy.IncreaseEnergy(energyOutside);
+        }
+        life.DecreaseLife(decreasedLife);
+        Shrub[] shrubs = FindObjectsOfType<Shrub>();
+        foreach (Shrub shrub in shrubs)
+        {
+            shrub.CountDown();
         }
     }
 }
