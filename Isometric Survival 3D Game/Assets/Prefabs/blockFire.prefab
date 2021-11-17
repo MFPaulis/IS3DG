@@ -19290,6 +19290,21 @@ MonoBehaviour:
   H: 0
   F: 0
   cameFromNode: {fileID: 0}
+--- !u!114 &4593885852106297113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6876932168473318853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08c7e4ba6ef2854ebe98138b1839a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyCost: 20
+  removedFood: 1
+  addedCookedFood: 1
 --- !u!1001 &600966549181426905
 PrefabInstance:
   m_ObjectHideFlags: 0

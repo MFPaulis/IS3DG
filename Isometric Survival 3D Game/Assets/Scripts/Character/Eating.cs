@@ -6,7 +6,8 @@ public class Eating : MonoBehaviour
 {
     Equipment equipment;
     Life life;
-    [SerializeField] float increasedLife = 100;
+    [SerializeField] float increasedLifeFood = 100;
+    [SerializeField] float increasedLifeCookedFood = 200;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class Eating : MonoBehaviour
         if (equipment.GetFood() > 0)
         {
             equipment.RemoveFood(1);
-            life.IncreaseLife(increasedLife);
+            life.IncreaseLife(increasedLifeFood);
         }
     }
 
@@ -35,7 +36,7 @@ public class Eating : MonoBehaviour
         if (equipment.GetCookedFood() > 0)
         {
             equipment.RemoveCookedFood(1);
-            life.IncreaseLife(increasedLife);
+            life.IncreaseLife(increasedLifeCookedFood);
         }
     }
 
