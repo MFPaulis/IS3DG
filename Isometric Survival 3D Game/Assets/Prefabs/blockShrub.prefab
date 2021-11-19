@@ -175,6 +175,18 @@ MonoBehaviour:
   energyCost: 20
   addedFood: 1
   daysToGrow: 6
+--- !u!114 &1225711070220784448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196146814319095804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ee01f0325aab743b7ac0e39b4eabdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8177823502830341664
 PrefabInstance:
   m_ObjectHideFlags: 0
