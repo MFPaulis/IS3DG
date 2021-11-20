@@ -48,10 +48,20 @@ public class Map : MonoBehaviour
 
     public void Discover(int x, int z)
     {
+        GameObject secretBlock = blocks[x, z];
         int rnd = Random.Range(0, blockPrefabs.Length);
         blocks[x, z] = Instantiate(blockPrefabs[rnd], new Vector3(x, 0, z), Quaternion.identity);
         blocks[x, z].GetComponent<Node>().x = x;
         blocks[x, z].GetComponent<Node>().z = z;
+        secretBlock.GetComponent<SecretBlock>().CheckNeighbours();
+        Destroy(secretBlock);
+
+    }
+
+    public bool IsPositionCorrect(int x, int z)
+    {
+        if (x < 0 || z < 0 || x >= width || z >= height) return false;
+        else return true;
     }
 
     public Node GetNode(int x, int z)

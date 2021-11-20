@@ -10,12 +10,14 @@ public class CharacterMovement : MonoBehaviour
     Queue<Vector3> newPositions = new Queue<Vector3>();
     PathFinding pathFinding;
     Energy energy;
+    Sight sight;
     bool isMoving = false;
 
     private void Start()
     {
         pathFinding = FindObjectOfType<PathFinding>();
         energy = FindObjectOfType<Energy>();
+        sight = gameObject.GetComponent<Sight>();
     }
     
     public int GetX()
@@ -64,6 +66,7 @@ public class CharacterMovement : MonoBehaviour
             if (Vector3.Distance(transform.position, newPositions.Peek()) < 0.001f)
             {
                 newPositions.Dequeue();
+                sight.LookAround();
             }
         } else
         {
