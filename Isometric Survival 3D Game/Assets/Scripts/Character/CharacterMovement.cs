@@ -6,6 +6,8 @@ using System;
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] float speed = 2f;
+    Animator animator;
+    Transform character;
     float energyCost = 10;
     Queue<Vector3> newPositions = new Queue<Vector3>();
     PathFinding pathFinding;
@@ -16,6 +18,8 @@ public class CharacterMovement : MonoBehaviour
     {
         pathFinding = FindObjectOfType<PathFinding>();
         energy = FindObjectOfType<Energy>();
+        animator = GetComponentInChildren<Animator>();
+        character = GameObject.Find("character1").transform;
     }
     
     public int GetX()
@@ -39,6 +43,10 @@ public class CharacterMovement : MonoBehaviour
                 {
                     for (int i = 0; i < nodes.Count; i++)
                     {
+                        Vector3 movementDirection = new Vector3((nodes[i].x - character.transform.position.x ) , 0, 0);
+                        movementDirection.Normalize();
+                        character.forward = movementDirection;
+                        animator.SetBool("isWalking", true);
                         newPositions.Enqueue(new Vector3(nodes[i].x, transform.position.y, nodes[i].z));
                         if (i != 0) energy.DecreaseEnergy(energyCost);
                     }
@@ -67,6 +75,7 @@ public class CharacterMovement : MonoBehaviour
             }
         } else
         {
+            animator.SetBool("isWalking", false);
             isMoving = false;
         }
     }
