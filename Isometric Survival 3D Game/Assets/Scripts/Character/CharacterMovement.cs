@@ -20,10 +20,11 @@ public class CharacterMovement : MonoBehaviour
         pathFinding = FindObjectOfType<PathFinding>();
         energy = FindObjectOfType<Energy>();
 
-        sight = gameObject.GetComponent<Sight>();
+                sight = gameObject.GetComponent<Sight>();
 
         animator = GetComponentInChildren<Animator>();
-        character = GameObject.Find("character1").transform.GetChild(0);
+        character = GameObject.Find("character1").transform;
+
     }
     
     public int GetX()
@@ -47,7 +48,7 @@ public class CharacterMovement : MonoBehaviour
                 {
                     for (int i = 0; i < nodes.Count; i++)
                     {
-                        Vector3 movementDirection = new Vector3((nodes[i].x - character.transform.position.x ) , 0, 0);
+                        Vector3 movementDirection = new Vector3((nodes[i].x - character.transform.position.x) , 0, 0);
                         movementDirection.Normalize();
                         character.forward = movementDirection;
                         animator.SetBool("isWalking", true);
