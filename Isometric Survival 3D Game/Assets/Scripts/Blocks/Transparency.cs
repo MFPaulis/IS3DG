@@ -13,7 +13,7 @@ public class Transparency : MonoBehaviour
             float colorR = materials[i].GetColor("_Color").r;
             float colorG = materials[i].GetColor("_Color").g;
             float colorB = materials[i].GetColor("_Color").b;
-            materials[i].color = new Color(colorR, colorG, colorB, 0.2f);
+            materials[i].color = new Color(colorR, colorG, colorB, 0.5f);
         }
     }
 

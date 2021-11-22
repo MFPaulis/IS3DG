@@ -68,16 +68,18 @@ public class SecretBlock : MonoBehaviour
                 {
                     characterMovement.MoveToPoint(lastNode.x, lastNode.z);
                 }
-                AddNeighbours();
-                Destroy(gameObject);
-                foreach (GameObject neighbour in neighbours)
-                {
-                    if (neighbour.GetComponent<SecretBlock>())
-                        neighbour.GetComponent<SecretBlock>().checkIfAvailable();
-                }
             }
         }
     }
 
+    public void CheckNeighbours()
+    {
+        AddNeighbours();
+        foreach (GameObject neighbour in neighbours)
+        {
+            if (neighbour.GetComponent<SecretBlock>())
+                neighbour.GetComponent<SecretBlock>().checkIfAvailable();
+        }
+    }
     
 }

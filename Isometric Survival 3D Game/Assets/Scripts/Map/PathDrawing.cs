@@ -70,13 +70,16 @@ public class PathDrawing : MonoBehaviour
 
     private void ErasePath()
     {
-        foreach (Node node in nodes)
+        if (nodes != null)
         {
-            GameObject block = map.GetBlock(node.x, node.z);
-            Material[] materials = block.GetComponent<Renderer>().materials;
-            materials[1].color = new Color(0.87f, 0.97f, 1, 1);
+            foreach (Node node in nodes)
+            {
+                GameObject block = map.GetBlock(node.x, node.z);
+                Material[] materials = block.GetComponent<Renderer>().materials;
+                materials[1].color = new Color(0.87f, 0.97f, 1, 1);
+            }
+            nodes.Clear();
         }
-        nodes.Clear();
         pathShowed = false;
     }
 }
