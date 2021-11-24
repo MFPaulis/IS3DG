@@ -48,7 +48,7 @@ public class CharacterMovement : MonoBehaviour
                 {
                     for (int i = 0; i < nodes.Count; i++)
                     {
-                        Vector3 movementDirection = new Vector3((nodes[i].x - character.transform.position.x) , 0, 0);
+                        Vector3 movementDirection = new Vector3((nodes[i].x - character.transform.position.x) , 0, (nodes[i].z - character.transform.position.z));
                         movementDirection.Normalize();
                         character.forward = movementDirection;
                         animator.SetBool("isWalking", true);
