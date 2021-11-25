@@ -2226,7 +2226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22dacbf0a9e2f1f46b42200760fd3b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 3
 --- !u!4 &1334526593
 Transform:
   m_ObjectHideFlags: 0
@@ -3229,10 +3228,10 @@ RectTransform:
   m_Father: {fileID: 970115269}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: 100}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -76.90979, y: -34.1492}
+  m_SizeDelta: {x: 153.8195, y: 41.7443}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2081460528
 MonoBehaviour:
@@ -3317,7 +3316,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -55.13273, w: 0}
+  m_margin: {x: -1.2585449, y: 0, z: 1.6308823, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

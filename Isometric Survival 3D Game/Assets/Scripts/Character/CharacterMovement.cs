@@ -48,10 +48,6 @@ public class CharacterMovement : MonoBehaviour
                 {
                     for (int i = 0; i < nodes.Count; i++)
                     {
-                        Vector3 movementDirection = new Vector3((nodes[i].x - character.transform.position.x) , 0, (nodes[i].z - character.transform.position.z));
-                        movementDirection.Normalize();
-                        character.forward = movementDirection;
-                        animator.SetBool("isWalking", true);
                         newPositions.Enqueue(new Vector3(nodes[i].x, transform.position.y, nodes[i].z));
                         if (i != 0) energy.DecreaseEnergy(energyCost);
                     }
@@ -77,6 +73,7 @@ public class CharacterMovement : MonoBehaviour
             if (Vector3.Distance(transform.position, newPositions.Peek()) < 0.001f)
             {
                 newPositions.Dequeue();
+                if (newPositions.Count > 0) Rotate(newPositions.Peek());
                 sight.LookAround();
             }
         } else
@@ -84,6 +81,14 @@ public class CharacterMovement : MonoBehaviour
             animator.SetBool("isWalking", false);
             isMoving = false;
         }
+    }
+
+    private void Rotate(Vector3 newPosition)
+    {
+        Vector3 movementDirection = new Vector3((newPosition.x - character.transform.position.x), 0, (newPosition.z - character.transform.position.z));
+        movementDirection.Normalize();
+        character.forward = movementDirection;
+        animator.SetBool("isWalking", true);
     }
 
     public bool IsMoving()
