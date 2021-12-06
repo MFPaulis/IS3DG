@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
   m_LocalPosition: {x: -29.6, y: 22.98, z: -30}
   m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2946891679072472895}
   m_RootOrder: 0
@@ -113,7 +114,6 @@ GameObject:
   - component: {fileID: 2946891679072472893}
   - component: {fileID: 2946891679072472896}
   - component: {fileID: 2946891679072472897}
-  - component: {fileID: 2946891679072472892}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -131,6 +131,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5, y: 1.32, z: 5}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2946891678394505844}
   m_Father: {fileID: 0}
@@ -214,16 +215,3 @@ MonoBehaviour:
   text: {fileID: 0}
   bar: {fileID: 0}
   speed: 3
---- !u!114 &2946891679072472892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2946891679072472891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d43194499af3a458327d9ea86e4df8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  woodText: {fileID: 0}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Eating : MonoBehaviour
 {
+    CharacterManager characterManager;
     Equipment equipment;
     Life life;
     [SerializeField] float increasedLifeFood = 100;
@@ -12,8 +13,8 @@ public class Eating : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        characterManager = FindObjectOfType<CharacterManager>();
         equipment = FindObjectOfType<Equipment>();
-        life = FindObjectOfType<Life>();
     }
 
     // Update is called once per frame
@@ -24,6 +25,7 @@ public class Eating : MonoBehaviour
 
     public void eatFood()
     {
+        life = characterManager.GetLife();
         if (equipment.GetFood() > 0)
         {
             equipment.RemoveFood(1);
@@ -33,6 +35,7 @@ public class Eating : MonoBehaviour
 
     public void eatCookedFood()
     {
+        life = characterManager.GetLife();
         if (equipment.GetCookedFood() > 0)
         {
             equipment.RemoveCookedFood(1);

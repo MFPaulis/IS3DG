@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Sleeping : MonoBehaviour
 {
+    CharacterManager characterManager;
     Energy energy;
     Map map;
     CharacterMovement characterMovement;
@@ -11,32 +14,44 @@ public class Sleeping : MonoBehaviour
     [SerializeField] float energyOutside = 100;
     [SerializeField] float energyInside = 200;
     [SerializeField] float decreasedLife = 40;
+    [SerializeField] TextMeshProUGUI daysText;
+    int days = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        energy = FindObjectOfType<Energy>();
+        characterManager = FindObjectOfType<CharacterManager>();
         map = FindObjectOfType<Map>();
-        characterMovement = FindObjectOfType<CharacterMovement>();
-        life = FindObjectOfType<Life>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Sleep()
     {
-        GameObject block = map.GetBlock(characterMovement.GetX(), characterMovement.GetZ());
-        if(block.GetComponent<Tent>())
+        days++;
+        daysText.text = "days here: " + days;
+
+        for (int i = 0; i < 2; i++)
         {
-            energy.IncreaseEnergy(energyInside);
-        } else
-        {
-            energy.IncreaseEnergy(energyOutside);
+            characterMovement = characterManager.GetCharacterMovement();
+            energy = characterManager.GetEnergy();
+            life = characterManager.GetLife();
+            GameObject block = map.GetBlock(characterMovement.GetX(), characterMovement.GetZ());
+            if(block.GetComponent<Tent>())
+            {
+                energy.IncreaseEnergy(energyInside);
+            } else
+            {
+                energy.IncreaseEnergy(energyOutside);
+            }
+            life.DecreaseLife(decreasedLife);
+            characterManager.changeCharacter();
         }
-        life.DecreaseLife(decreasedLife);
+        
         Shrub[] shrubs = FindObjectsOfType<Shrub>();
         foreach (Shrub shrub in shrubs)
         {

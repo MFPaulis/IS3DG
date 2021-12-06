@@ -6,6 +6,7 @@ public class SecretBlock : MonoBehaviour
 {
     int x, z;
     Map map;
+    CharacterManager characterManager;
     CharacterMovement characterMovement;
     Energy energy;
     List<GameObject> neighbours = new List<GameObject>();
@@ -14,8 +15,7 @@ public class SecretBlock : MonoBehaviour
     private void Start()
     {
         map = FindObjectOfType<Map>();
-        characterMovement = FindObjectOfType<CharacterMovement>();
-        energy = FindObjectOfType<Energy>();
+        characterManager = FindObjectOfType<CharacterManager>();
         Node node = gameObject.GetComponent<Node>();
         x = node.x;
         z = node.z;
@@ -49,6 +49,8 @@ public class SecretBlock : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
+        characterMovement = characterManager.GetCharacterMovement();
+        energy = characterManager.GetEnergy();
         if (!characterMovement.IsMoving())
         {
             gameObject.GetComponent<Node>().walkable = true;

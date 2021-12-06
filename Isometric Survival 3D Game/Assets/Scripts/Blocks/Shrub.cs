@@ -5,6 +5,7 @@ using UnityEngine;
 public class Shrub : MonoBehaviour
 {
     int x, z;
+    CharacterManager characterManager;
     CharacterMovement characterMovement;
     Energy energy;
     Equipment equipment;
@@ -20,8 +21,7 @@ public class Shrub : MonoBehaviour
     void Start()
     {
         berries = gameObject.transform.GetChild(0).gameObject;
-        characterMovement = FindObjectOfType<CharacterMovement>();
-        energy = FindObjectOfType<Energy>();
+        characterManager = FindObjectOfType<CharacterManager>();
         equipment = FindObjectOfType<Equipment>();
         block = transform.parent.gameObject;
         node = block.GetComponent<Node>();
@@ -44,27 +44,32 @@ public class Shrub : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        if (!characterMovement.IsMoving() && !readyToGather && berries.activeSelf)
+        if(!readyToGather)
         {
-            transform.parent.GetComponent<Node>().walkable = true;
-            List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
-            if (nodes != null && energy.GetEnergy()
-               >= characterMovement.getEnergyCost() * (nodes.Count - 1) + energyCost
-               && (characterMovement.MoveToPoint(x, z)))
+            characterMovement = characterManager.GetCharacterMovement();
+            energy = characterManager.GetEnergy();
+            if (!characterMovement.IsMoving() && !readyToGather && berries.activeSelf)
             {
-                readyToGather = true;
-            }
-            else
+                transform.parent.GetComponent<Node>().walkable = true;
+                List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
+                if (nodes != null && energy.GetEnergy()
+                   >= characterMovement.getEnergyCost() * (nodes.Count - 1) + energyCost
+                   && (characterMovement.MoveToPoint(x, z)))
+                {
+                    readyToGather = true;
+                }
+                else
+                {
+                    transform.parent.GetComponent<Node>().walkable = false;
+                }
+            } 
+            if (characterMovement.GetX() == x && characterMovement.GetZ() == z)
             {
-                transform.parent.GetComponent<Node>().walkable = false;
+                node.walkable = true;
+            } else
+            {
+                node.walkable = false;
             }
-        } 
-        if (characterMovement.GetX() == x && characterMovement.GetZ() == z)
-        {
-            node.walkable = true;
-        } else
-        {
-            node.walkable = false;
         }
     }
 

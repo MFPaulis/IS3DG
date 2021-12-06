@@ -5,6 +5,7 @@ using UnityEngine;
 public class PathDrawing : MonoBehaviour
 {
     Map map;
+    CharacterManager characterManager;
     CharacterMovement characterMovement;
     Energy energy;
     List<Node> nodes = new List<Node>();
@@ -14,6 +15,7 @@ public class PathDrawing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        characterManager = FindObjectOfType<CharacterManager>();
         map = FindObjectOfType<Map>();
         characterMovement = FindObjectOfType<CharacterMovement>();
         energy = FindObjectOfType<Energy>();
@@ -24,6 +26,9 @@ public class PathDrawing : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            characterMovement = characterManager.GetCharacterMovement();
+            energy = characterManager.GetEnergy();
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             Physics.Raycast(ray, out hit);
@@ -55,6 +60,7 @@ public class PathDrawing : MonoBehaviour
 
     private void DrawPath(int x, int z)
     {
+
         nodes = characterMovement.FindPathFromCharacter(x, z);
         if (nodes != null && energy.GetEnergy() >= characterMovement.getEnergyCost() * (nodes.Count - 1))
         {

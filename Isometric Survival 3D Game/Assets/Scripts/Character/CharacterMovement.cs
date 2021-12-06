@@ -18,12 +18,11 @@ public class CharacterMovement : MonoBehaviour
     private void Start()
     {
         pathFinding = FindObjectOfType<PathFinding>();
-        energy = FindObjectOfType<Energy>();
-
-                sight = gameObject.GetComponent<Sight>();
+        energy = gameObject.GetComponent<Energy>();
+        sight = gameObject.GetComponent<Sight>();
 
         animator = GetComponentInChildren<Animator>();
-        character = GameObject.Find("character1").transform;
+        character = gameObject.transform.Find("character");
 
     }
     

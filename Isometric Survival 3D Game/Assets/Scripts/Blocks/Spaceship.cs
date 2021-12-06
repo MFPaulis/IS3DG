@@ -11,6 +11,7 @@ public class Spaceship : MonoBehaviour
     [SerializeField] int removedParts = 1;
     [SerializeField] float requiredParts = 10;
     int repairProgress;
+    CharacterManager characterManager;
     CharacterMovement characterMovement;
     Energy energy;
     Equipment equipment;
@@ -18,8 +19,7 @@ public class Spaceship : MonoBehaviour
 
     private void Start()
     {
-        characterMovement = FindObjectOfType<CharacterMovement>();
-        energy = FindObjectOfType<Energy>();
+        characterManager = FindObjectOfType<CharacterManager>();
         equipment = FindObjectOfType<Equipment>();
     }
 
@@ -38,6 +38,8 @@ public class Spaceship : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
+        characterMovement = characterManager.GetCharacterMovement();
+        energy = characterManager.GetEnergy();
         if (!characterMovement.IsMoving())
         {
             List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);

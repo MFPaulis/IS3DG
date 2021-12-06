@@ -6,6 +6,7 @@ public class Tent : MonoBehaviour
 {
     int x, z;
     Map map;
+    CharacterManager characterManager;
     Energy energy;
     CharacterMovement characterMovement;
 
@@ -14,8 +15,7 @@ public class Tent : MonoBehaviour
     void Start()
     {
         map = FindObjectOfType<Map>();
-        characterMovement = FindObjectOfType<CharacterMovement>();
-        energy = FindObjectOfType<Energy>();
+        characterManager = FindObjectOfType<CharacterManager>();
         Node node = gameObject.GetComponent<Node>();
         x = node.x;
         z = node.z;
@@ -29,6 +29,8 @@ public class Tent : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
+        characterMovement = characterManager.GetCharacterMovement();
+        energy = characterManager.GetEnergy();
         if (!characterMovement.IsMoving())
         {
             List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);

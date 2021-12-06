@@ -12,8 +12,8 @@ public class Sight : MonoBehaviour
     private void Start()
     {
         map = FindObjectOfType<Map>();
-        characterMovement = FindObjectOfType<CharacterMovement>();
-        Skillset skillset = FindObjectOfType<Skillset>();
+        characterMovement = gameObject.GetComponent<CharacterMovement>();
+        Skillset skillset = gameObject.GetComponent<Skillset>();
         sightLevel = skillset.GetSightSkill();
     }
 

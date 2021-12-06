@@ -6,6 +6,7 @@ public class Parts : MonoBehaviour
 {
     int x, z;
     Map map;
+    CharacterManager characterManager;
     CharacterMovement characterMovement;
     Energy energy;
     Equipment equipment;
@@ -19,8 +20,7 @@ public class Parts : MonoBehaviour
     {
         map = FindObjectOfType<Map>();
         block = transform.parent.gameObject;
-        characterMovement = FindObjectOfType<CharacterMovement>();
-        energy = FindObjectOfType<Energy>();
+        characterManager = FindObjectOfType<CharacterManager>();
         equipment = FindObjectOfType<Equipment>();
         Node node = block.GetComponent<Node>();
         x = node.x;
@@ -39,22 +39,28 @@ public class Parts : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        if (!characterMovement.IsMoving())
+        if(!readyToTake)
         {
-            transform.parent.GetComponent<Node>().walkable = true;
-            List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
-            if (nodes != null && energy.GetEnergy()
-               >= characterMovement.getEnergyCost() * (nodes.Count - 1) + energyCost
-               && (characterMovement.MoveToPoint(x, z)))
+            characterMovement = characterManager.GetCharacterMovement();
+            energy = characterManager.GetEnergy();
+            if (!characterMovement.IsMoving())
             {
-                transform.SetParent(null, true);
-                map.Clean(x, z);
-                readyToTake = true;
-            }
-            else
-            {
-                transform.parent.GetComponent<Node>().walkable = false;
+                transform.parent.GetComponent<Node>().walkable = true;
+                List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
+                if (nodes != null && energy.GetEnergy()
+                   >= characterMovement.getEnergyCost() * (nodes.Count - 1) + energyCost
+                   && (characterMovement.MoveToPoint(x, z)))
+                {
+                    transform.SetParent(null, true);
+                    map.Clean(x, z);
+                    readyToTake = true;
+                }
+                else
+                {
+                    transform.parent.GetComponent<Node>().walkable = false;
+                }
             }
         }
+       
     }
 }

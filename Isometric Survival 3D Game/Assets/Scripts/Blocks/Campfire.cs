@@ -5,6 +5,7 @@ using UnityEngine;
 public class Campfire : MonoBehaviour
 {
     int x, z;
+    CharacterManager characterManager;
     Energy energy;
     CharacterMovement characterMovement;
     Equipment equipment;
@@ -16,8 +17,7 @@ public class Campfire : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        characterMovement = FindObjectOfType<CharacterMovement>();
-        energy = FindObjectOfType<Energy>();
+        characterManager = FindObjectOfType<CharacterManager>();
         equipment = FindObjectOfType<Equipment>();
         Node node = gameObject.GetComponent<Node>();
         x = node.x;
@@ -39,6 +39,8 @@ public class Campfire : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
+        characterMovement = characterManager.GetCharacterMovement();
+        energy = characterManager.GetEnergy();
         if (!characterMovement.IsMoving())
         {
             gameObject.GetComponent<Node>().walkable = true;

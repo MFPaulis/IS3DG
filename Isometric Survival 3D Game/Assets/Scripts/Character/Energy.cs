@@ -12,13 +12,10 @@ public class Energy : MonoBehaviour
     float energy, maxEnergy = 200;
     [SerializeField] float speed = 3f;
     float lerpSpeed;
-    [SerializeField] TextMeshProUGUI daysText;
-    int days = 0;
 
     private void Start()
     {
         energy = maxEnergy;
-
     }
 
     private void Update()
@@ -27,7 +24,6 @@ public class Energy : MonoBehaviour
         text.text = percentage + "%";
         EnergyBarFiller();
         lerpSpeed = speed * Time.deltaTime;
-        daysText.text = "days here: " + days;
     }
 
     public float GetEnergy()
@@ -48,7 +44,6 @@ public class Energy : MonoBehaviour
 
     public void IncreaseEnergy(float points)
     {
-        days++;
         energy += points;
         if (energy > maxEnergy) energy = maxEnergy;
     }

@@ -7,6 +7,7 @@ public class EmptyPlace : MonoBehaviour, IPointerClickHandler
 {
     int x, z;
     Map map;
+    CharacterManager characterManager;
     CharacterMovement characterMovement;
     Energy energy;
     Equipment equipment;
@@ -17,8 +18,7 @@ public class EmptyPlace : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         map = FindObjectOfType<Map>();
-        characterMovement = FindObjectOfType<CharacterMovement>();
-        energy = FindObjectOfType<Energy>();
+        characterManager = FindObjectOfType<CharacterManager>();
         equipment = FindObjectOfType<Equipment>();
         Node node = gameObject.GetComponent<Node>();
         x = node.x;
@@ -54,14 +54,20 @@ public class EmptyPlace : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right && !characterMovement.IsMoving())
+        if(!readyToBuild)
         {
-            List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
-            if (nodes != null && energy.GetEnergy()
-                >= characterMovement.getEnergyCost() * (nodes.Count - 1) + energyCost
-                && equipment.GetWood() >= woodCost && (characterMovement.MoveToPoint(x, z)))
+            characterMovement = characterManager.GetCharacterMovement();
+            energy = characterManager.GetEnergy();
+
+            if (eventData.button == PointerEventData.InputButton.Right && !characterMovement.IsMoving())
             {
-                readyToBuild = true;
+                List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
+                if (nodes != null && energy.GetEnergy()
+                    >= characterMovement.getEnergyCost() * (nodes.Count - 1) + energyCost
+                    && equipment.GetWood() >= woodCost && (characterMovement.MoveToPoint(x, z)))
+                {
+                    readyToBuild = true;
+                }
             }
         }
     }
