@@ -13,7 +13,7 @@ public class Woods : MonoBehaviour
     GameObject block;
     bool readyToCutDown;
     bool isFalling = false;
-    [SerializeField] float energyCost = 20;
+    [SerializeField] static float energyCost = 20;
     [SerializeField] int fallingSpeed = 5;
     [SerializeField] int addedWood = 1;
 
@@ -47,7 +47,7 @@ public class Woods : MonoBehaviour
 
 
 
-    private void OnMouseUpAsButton()
+    public void Clicked()
     {
         if(!readyToCutDown)
         {
@@ -71,5 +71,10 @@ public class Woods : MonoBehaviour
             }
         }
         
+    }
+
+    public static float GetEnergyCost()
+    {
+        return energyCost;
     }
 }

@@ -27,7 +27,7 @@ public class Tent : MonoBehaviour
         
     }
 
-    private void OnMouseUpAsButton()
+    public void Clicked()
     {
         characterMovement = characterManager.GetCharacterMovement();
         energy = characterManager.GetEnergy();

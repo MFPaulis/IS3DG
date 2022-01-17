@@ -13,6 +13,7 @@ public class CharacterMovement : MonoBehaviour
     PathFinding pathFinding;
     Energy energy;
     Sight sight;
+    Map map;
     bool isMoving = false;
 
     private void Start()
@@ -20,7 +21,7 @@ public class CharacterMovement : MonoBehaviour
         pathFinding = FindObjectOfType<PathFinding>();
         energy = gameObject.GetComponent<Energy>();
         sight = gameObject.GetComponent<Sight>();
-
+        map = FindObjectOfType<Map>();
         animator = GetComponentInChildren<Animator>();
         character = gameObject.transform.Find("character");
 
@@ -60,7 +61,19 @@ public class CharacterMovement : MonoBehaviour
 
     public List<Node> FindPathFromCharacter(int x, int z)
     {
-        return pathFinding.FindPath(GetX(), GetZ(), x, z);
+        //return pathFinding.FindPath(GetX(), GetZ(), x, z);
+        List<Node> nodes;
+        if (map.GetNode(x, z).walkable == false)
+        {
+            map.GetNode(x, z).walkable = true;
+            nodes = pathFinding.FindPath(GetX(), GetZ(), x, z);
+            map.GetNode(x, z).walkable = false;
+        }
+        else
+        {
+            nodes = pathFinding.FindPath(GetX(), GetZ(), x, z);
+        }
+        return nodes;
     }
 
     private void Update()

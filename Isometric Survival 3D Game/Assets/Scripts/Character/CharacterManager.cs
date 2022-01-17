@@ -49,4 +49,24 @@ public class CharacterManager : MonoBehaviour
         return characters[currentCharacter].GetComponent<CharacterMovement>();
     }
 
+    public int GetSightSkill()
+    {
+        return SkillSelection.skills[currentCharacter, 0];
+    }
+
+    public int GetGatheringSkill()
+    {
+        return SkillSelection.skills[currentCharacter, 1];
+    }
+
+    public int GetTechnicalSkill()
+    {
+        return SkillSelection.skills[currentCharacter, 2];
+    }
+
+    public int GetCookingSkill()
+    {
+        return SkillSelection.skills[currentCharacter, 3];
+    }
+
 }

@@ -8,11 +8,12 @@ public class Parts : MonoBehaviour
     Map map;
     CharacterManager characterManager;
     CharacterMovement characterMovement;
+    float currentEnergyCost;
     Energy energy;
     Equipment equipment;
     GameObject block;
     bool readyToTake;
-    [SerializeField] float energyCost = 10;
+    [SerializeField] static float [] energyCost = { 50, 40, 30, 20 };
     [SerializeField] int addedParts = 1;
 
 
@@ -31,24 +32,25 @@ public class Parts : MonoBehaviour
     {
         if (readyToTake && !characterMovement.IsMoving())
         {
-            energy.DecreaseEnergy(energyCost);
+            energy.DecreaseEnergy(currentEnergyCost);
             equipment.AddParts(addedParts);
             Destroy(gameObject);
         }
     }
 
-    private void OnMouseUpAsButton()
+    public void Clicked()
     {
         if(!readyToTake)
         {
             characterMovement = characterManager.GetCharacterMovement();
             energy = characterManager.GetEnergy();
+            currentEnergyCost = energyCost[characterManager.GetTechnicalSkill()];
             if (!characterMovement.IsMoving())
             {
                 transform.parent.GetComponent<Node>().walkable = true;
                 List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
                 if (nodes != null && energy.GetEnergy()
-                   >= characterMovement.getEnergyCost() * (nodes.Count - 1) + energyCost
+                   >= characterMovement.getEnergyCost() * (nodes.Count - 1) + currentEnergyCost
                    && (characterMovement.MoveToPoint(x, z)))
                 {
                     transform.SetParent(null, true);
@@ -62,5 +64,10 @@ public class Parts : MonoBehaviour
             }
         }
        
+    }
+
+    public static float GetEnergyCost(int skillLevel)
+    {
+        return energyCost[skillLevel];
     }
 }

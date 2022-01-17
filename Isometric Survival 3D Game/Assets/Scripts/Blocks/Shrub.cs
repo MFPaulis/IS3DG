@@ -7,6 +7,7 @@ public class Shrub : MonoBehaviour
     int x, z;
     CharacterManager characterManager;
     CharacterMovement characterMovement;
+    float currentEnergyCost;
     Energy energy;
     Equipment equipment;
     GameObject block;
@@ -14,7 +15,7 @@ public class Shrub : MonoBehaviour
     GameObject berries;
     bool readyToGather;
     int countDown;
-    [SerializeField] float energyCost = 20;
+    [SerializeField] static float [] energyCost = { 30, 20, 10, 0 };
     [SerializeField] int addedFood = 1;
     [SerializeField] int daysToGrow = 6;
     // Start is called before the first frame update
@@ -35,25 +36,26 @@ public class Shrub : MonoBehaviour
     {
         if (readyToGather && !characterMovement.IsMoving())
         {
-            energy.DecreaseEnergy(energyCost);
+            energy.DecreaseEnergy(currentEnergyCost);
             equipment.AddFood(addedFood);
             berries.SetActive(false);
             readyToGather = false;
         }
     }
 
-    private void OnMouseUpAsButton()
+    public void Clicked()
     {
         if(!readyToGather)
         {
             characterMovement = characterManager.GetCharacterMovement();
             energy = characterManager.GetEnergy();
+            currentEnergyCost = energyCost[characterManager.GetGatheringSkill()];
             if (!characterMovement.IsMoving() && !readyToGather && berries.activeSelf)
             {
                 transform.parent.GetComponent<Node>().walkable = true;
                 List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
                 if (nodes != null && energy.GetEnergy()
-                   >= characterMovement.getEnergyCost() * (nodes.Count - 1) + energyCost
+                   >= characterMovement.getEnergyCost() * (nodes.Count - 1) + currentEnergyCost
                    && (characterMovement.MoveToPoint(x, z)))
                 {
                     readyToGather = true;
@@ -80,11 +82,19 @@ public class Shrub : MonoBehaviour
 
     public void CountDown()
     {
-        countDown--;
+        if(!berries.activeSelf) countDown--;
         if(countDown == 0)
         {
             GrowBerries();
             countDown = daysToGrow;
         }
     }
+
+    public float GetEnergyCost(int skillLevel)
+    {
+        if (berries.activeSelf) return energyCost[skillLevel];
+        else return 0;
+    }
+
+
 }

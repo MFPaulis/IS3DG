@@ -9,8 +9,9 @@ public class Campfire : MonoBehaviour
     Energy energy;
     CharacterMovement characterMovement;
     Equipment equipment;
+    float currentEnergyCost;
     bool readyToCook;
-    [SerializeField] float energyCost = 20;
+    [SerializeField] static float [] energyCost = { 40, 30, 20, 10 };
     [SerializeField] int removedFood = 1;
     [SerializeField] int addedCookedFood = 1;
 
@@ -29,7 +30,7 @@ public class Campfire : MonoBehaviour
     {
         if (readyToCook && !characterMovement.IsMoving())
         {
-            energy.DecreaseEnergy(energyCost);
+            energy.DecreaseEnergy(currentEnergyCost);
             equipment.RemoveFood(removedFood);
             equipment.AddCookedFood(addedCookedFood);
             readyToCook = false;
@@ -37,17 +38,18 @@ public class Campfire : MonoBehaviour
     }
 
 
-    private void OnMouseUpAsButton()
+    public void Clicked()
     {
         characterMovement = characterManager.GetCharacterMovement();
         energy = characterManager.GetEnergy();
+        currentEnergyCost = energyCost[characterManager.GetCookingSkill()];
         if (!characterMovement.IsMoving())
         {
             gameObject.GetComponent<Node>().walkable = true;
             List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
             gameObject.GetComponent<Node>().walkable = false;
             if (nodes != null && energy.GetEnergy()
-                >= characterMovement.getEnergyCost() * (nodes.Count - 2) + energyCost
+                >= characterMovement.getEnergyCost() * (nodes.Count - 2) + currentEnergyCost
                 && equipment.GetFood() >= removedFood)
             {
                 Node secondToLastNode = nodes[nodes.Count - 2];
@@ -56,5 +58,10 @@ public class Campfire : MonoBehaviour
                 readyToCook = true;
             }
         }
+    }
+
+    public static float GetEnergyCost(int skillLevel)
+    {
+        return energyCost[skillLevel];
     }
 }

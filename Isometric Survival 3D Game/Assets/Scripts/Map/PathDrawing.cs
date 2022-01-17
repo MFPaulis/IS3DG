@@ -11,6 +11,9 @@ public class PathDrawing : MonoBehaviour
     List<Node> nodes = new List<Node>();
     bool pathShowed;
     int xGoal, zGoal;
+    Costs costs;
+    int energyCosts;
+    int layerMask;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,8 @@ public class PathDrawing : MonoBehaviour
         map = FindObjectOfType<Map>();
         characterMovement = FindObjectOfType<CharacterMovement>();
         energy = FindObjectOfType<Energy>();
+        costs = FindObjectOfType<Costs>();
+        layerMask = LayerMask.GetMask("Blocks");
     }
 
     // Update is called once per frame
@@ -26,34 +31,44 @@ public class PathDrawing : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            costs.Clear();
             characterMovement = characterManager.GetCharacterMovement();
             energy = characterManager.GetEnergy();
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            Physics.Raycast(ray, out hit);
-            GameObject hitObject = hit.collider.gameObject;
-            if (hitObject.GetComponent<EmptyPlace>())
+            /*RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+            GameObject hitObject = null;
+            foreach (RaycastHit hit in hits)
             {
-                int x = hitObject.GetComponent<Node>().x;
-                int z = hitObject.GetComponent<Node>().z;
-                if (pathShowed && xGoal == x && zGoal == z)
+                hitObject = hit.collider.gameObject;
+                if (hitObject.GetComponent<Block>()) break;
+            }*/
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            {
+                GameObject hitObject = hit.collider.gameObject;
+                if (hitObject.GetComponent<Block>())
                 {
-                    characterMovement.MoveToPoint(x, z);
+                    int x = hitObject.GetComponent<Node>().x;
+                    int z = hitObject.GetComponent<Node>().z;
+                    if (pathShowed && xGoal == x && zGoal == z)
+                    {
+                        hitObject.GetComponent<Block>().BlockClicked();
+                        ErasePath();
+                    }
+                    else if (!characterMovement.IsMoving())
+                    {
+                        ErasePath();
+                        DrawPath(x, z);
+                        xGoal = x;
+                        zGoal = z;
+                        costs.ShowCosts(x, z, hitObject.GetComponent<Block>());
+                    }
+                }
+                else if (pathShowed)
+                {
                     ErasePath();
                 }
-                else if (!characterMovement.IsMoving())
-                {
-                    ErasePath();
-                    DrawPath(x, z);
-                    xGoal = x;
-                    zGoal = z;
-                    
-                }
-            }
-            else if (pathShowed)
-            {
-                ErasePath();
             }
         }
     }

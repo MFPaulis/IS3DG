@@ -71,4 +71,10 @@ public class EmptyPlace : MonoBehaviour, IPointerClickHandler
             }
         }
     }
+
+    public void Clicked()
+    {
+        characterMovement = characterManager.GetCharacterMovement();
+        characterMovement.MoveToPoint(x, z);
+    }
 }

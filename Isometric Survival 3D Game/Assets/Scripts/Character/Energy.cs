@@ -9,7 +9,7 @@ public class Energy : MonoBehaviour
     public TextMeshProUGUI text;
     public Image bar;
 
-    float energy, maxEnergy = 200;
+    float energy, maxEnergy = 100;
     [SerializeField] float speed = 3f;
     float lerpSpeed;
 

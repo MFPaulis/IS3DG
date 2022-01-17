@@ -8,13 +8,14 @@ public class Sight : MonoBehaviour
     CharacterMovement characterMovement;
     int sightLevel;
     int charX, charZ;
+    [SerializeField] int characterNumber;
 
     private void Start()
     {
         map = FindObjectOfType<Map>();
         characterMovement = gameObject.GetComponent<CharacterMovement>();
-        Skillset skillset = gameObject.GetComponent<Skillset>();
-        sightLevel = skillset.GetSightSkill();
+        CharacterManager characterManager = FindObjectOfType<CharacterManager>();
+        sightLevel = SkillSelection.skills[characterNumber, 0];
     }
 
     public void LookAround()
