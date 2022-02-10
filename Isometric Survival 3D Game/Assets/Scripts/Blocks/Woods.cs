@@ -15,7 +15,7 @@ public class Woods : MonoBehaviour
     bool isFalling = false;
     [SerializeField] static float energyCost = 20;
     [SerializeField] int fallingSpeed = 5;
-    [SerializeField] int addedWood = 1;
+    [SerializeField] int addedWood = 2;
 
     void Start()
     {
@@ -37,6 +37,7 @@ public class Woods : MonoBehaviour
         }
         else if(readyToCutDown && !characterMovement.IsMoving())
         {
+            GetComponent<AudioSource>().Play();
             energy.DecreaseEnergy(energyCost);
             equipment.AddWood(addedWood);
             transform.Rotate(new Vector3(0, Random.Range(0, 360), 0));

@@ -15,6 +15,7 @@ public class Parts : MonoBehaviour
     bool readyToTake;
     [SerializeField] static float [] energyCost = { 50, 40, 30, 20 };
     [SerializeField] int addedParts = 1;
+    [SerializeField] AudioClip audioClip;
 
 
     void Start()
@@ -32,6 +33,7 @@ public class Parts : MonoBehaviour
     {
         if (readyToTake && !characterMovement.IsMoving())
         {
+            AudioSource.PlayClipAtPoint(audioClip, characterManager.GetCamera().transform.position, 1);
             energy.DecreaseEnergy(currentEnergyCost);
             equipment.AddParts(addedParts);
             Destroy(gameObject);

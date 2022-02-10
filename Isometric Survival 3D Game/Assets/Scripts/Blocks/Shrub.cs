@@ -13,11 +13,14 @@ public class Shrub : MonoBehaviour
     GameObject block;
     Node node;
     GameObject berries;
-    bool readyToGather;
+    bool readyToGatherOrCut;
     int countDown;
     [SerializeField] static float [] energyCost = { 30, 20, 10, 0 };
+    [SerializeField] static float cuttingEnergyCost = 10;
     [SerializeField] int addedFood = 1;
+    [SerializeField] int addedWood = 1;
     [SerializeField] int daysToGrow = 6;
+    [SerializeField] AudioClip audioClip;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,44 +37,49 @@ public class Shrub : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (readyToGather && !characterMovement.IsMoving())
+        if (readyToGatherOrCut && !characterMovement.IsMoving())
         {
+            AudioSource.PlayClipAtPoint(audioClip, characterManager.GetCamera().transform.position, 1);
             energy.DecreaseEnergy(currentEnergyCost);
-            equipment.AddFood(addedFood);
-            berries.SetActive(false);
-            readyToGather = false;
+            if (berries.activeSelf)
+            {
+                equipment.AddFood(addedFood);
+                berries.SetActive(false);
+                readyToGatherOrCut = false;
+            } else
+            {
+                equipment.AddWood(addedWood);
+                Destroy(gameObject);
+            }
         }
     }
 
     public void Clicked()
     {
-        if(!readyToGather)
+        characterMovement = characterManager.GetCharacterMovement();
+        energy = characterManager.GetEnergy();
+        currentEnergyCost = GetEnergyCost(characterManager.GetGatheringSkill());
+        if (!characterMovement.IsMoving() && !readyToGatherOrCut)
         {
-            characterMovement = characterManager.GetCharacterMovement();
-            energy = characterManager.GetEnergy();
-            currentEnergyCost = energyCost[characterManager.GetGatheringSkill()];
-            if (!characterMovement.IsMoving() && !readyToGather && berries.activeSelf)
+            transform.parent.GetComponent<Node>().walkable = true;
+            List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
+            if (nodes != null && energy.GetEnergy()
+                >= characterMovement.getEnergyCost() * (nodes.Count - 1) + currentEnergyCost
+                && (characterMovement.MoveToPoint(x, z)))
             {
-                transform.parent.GetComponent<Node>().walkable = true;
-                List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
-                if (nodes != null && energy.GetEnergy()
-                   >= characterMovement.getEnergyCost() * (nodes.Count - 1) + currentEnergyCost
-                   && (characterMovement.MoveToPoint(x, z)))
-                {
-                    readyToGather = true;
-                }
-                else
-                {
-                    transform.parent.GetComponent<Node>().walkable = false;
-                }
-            } 
-            if (characterMovement.GetX() == x && characterMovement.GetZ() == z)
-            {
-                node.walkable = true;
-            } else
-            {
-                node.walkable = false;
+                readyToGatherOrCut = true;
             }
+            else
+            {
+                transform.parent.GetComponent<Node>().walkable = false;
+            }
+        } 
+        if (characterMovement.GetX() == x && characterMovement.GetZ() == z)
+        {
+            node.walkable = true;
+        } else
+        {
+            node.walkable = false;
         }
     }
 
@@ -93,7 +101,7 @@ public class Shrub : MonoBehaviour
     public float GetEnergyCost(int skillLevel)
     {
         if (berries.activeSelf) return energyCost[skillLevel];
-        else return 0;
+        else return cuttingEnergyCost;
     }
 
 

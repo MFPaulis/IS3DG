@@ -28,6 +28,7 @@ public class Eating : MonoBehaviour
         life = characterManager.GetLife();
         if (equipment.GetFood() > 0)
         {
+            GetComponent<AudioSource>().Play();
             equipment.RemoveFood(1);
             life.IncreaseLife(increasedLifeFood);
         }
@@ -38,6 +39,7 @@ public class Eating : MonoBehaviour
         life = characterManager.GetLife();
         if (equipment.GetCookedFood() > 0)
         {
+            GetComponent<AudioSource>().Play();
             equipment.RemoveCookedFood(1);
             life.IncreaseLife(increasedLifeCookedFood);
         }

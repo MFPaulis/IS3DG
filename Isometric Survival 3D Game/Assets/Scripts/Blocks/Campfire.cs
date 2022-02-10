@@ -30,6 +30,7 @@ public class Campfire : MonoBehaviour
     {
         if (readyToCook && !characterMovement.IsMoving())
         {
+            GetComponent<AudioSource>().Play();
             energy.DecreaseEnergy(currentEnergyCost);
             equipment.RemoveFood(removedFood);
             equipment.AddCookedFood(addedCookedFood);

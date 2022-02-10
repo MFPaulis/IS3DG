@@ -6,8 +6,8 @@ using TMPro;
 public class Spaceship : MonoBehaviour
 {
     [SerializeField] TextMeshPro text;
-    [SerializeField] int x, z;
-    [SerializeField] int energyCost = 20;
+   // [SerializeField] int x, z;
+    [SerializeField] static float [] energyCost = { 50, 40, 30, 20 };
     [SerializeField] int removedParts = 1;
     [SerializeField] float requiredParts = 10;
     int repairProgress;
@@ -16,6 +16,7 @@ public class Spaceship : MonoBehaviour
     Energy energy;
     Equipment equipment;
     bool readyToRepair;
+    float currentEnergyCost;
 
     private void Start()
     {
@@ -27,7 +28,8 @@ public class Spaceship : MonoBehaviour
     {
         if (readyToRepair && !characterMovement.IsMoving())
         {
-            energy.DecreaseEnergy(energyCost);
+            GetComponent<AudioSource>().Play();
+            energy.DecreaseEnergy(currentEnergyCost);
             equipment.RemoveParts(removedParts);
             repairProgress += removedParts;
             float percentage = repairProgress / requiredParts * 100;
@@ -36,19 +38,26 @@ public class Spaceship : MonoBehaviour
         }
     }
 
-    private void OnMouseUpAsButton()
+    public void Clicked(int x, int z)
     {
         characterMovement = characterManager.GetCharacterMovement();
         energy = characterManager.GetEnergy();
+        currentEnergyCost = energyCost[characterManager.GetTechnicalSkill()];
         if (!characterMovement.IsMoving())
         {
             List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
             if (nodes != null && equipment.GetParts() >= removedParts && energy.GetEnergy()
-               >= characterMovement.getEnergyCost() * (nodes.Count - 1) + energyCost
+               >= characterMovement.getEnergyCost() * (nodes.Count - 1) + currentEnergyCost
                && (characterMovement.MoveToPoint(x, z)))
             {
                 readyToRepair = true;
             }
         }
     }
+
+    public static float GetEnergyCost(int skillLevel)
+    {
+        return energyCost[skillLevel];
+    }
+
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BlockType {Empty, Woods, Shrub, Parts, Tent, Campfire};
+public enum BlockType {Empty, Woods, Shrub, Parts, Tent, Campfire, Spaceship};
 
 public class Block : MonoBehaviour
 {
@@ -34,7 +34,17 @@ public class Block : MonoBehaviour
         else if (bType == BlockType.Campfire)
         {
             GetComponent<Campfire>().Clicked();
+        } else if (bType == BlockType.Spaceship)
+        {
+            int x = GetComponent<Node>().x;
+            int z = GetComponent<Node>().z;
+            FindObjectOfType<Spaceship>().Clicked(x, z);
         }
+    }
+
+    public void SetBType(BlockType type)
+    {
+        bType = type;
     }
 
 

@@ -69,4 +69,9 @@ public class CharacterManager : MonoBehaviour
         return SkillSelection.skills[currentCharacter, 3];
     }
 
+    public GameObject GetCamera()
+    {
+        return cameras[currentCharacter];
+    }
+
 }

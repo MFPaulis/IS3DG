@@ -13,7 +13,11 @@ public class Map : MonoBehaviour
     [SerializeField] GameObject blockTent;
     [SerializeField] GameObject blockFire;
     [SerializeField] GameObject [] blockPrefabs;
+    [SerializeField] int[] probabilities;
+    [SerializeField] int[] maxTimes;
     [SerializeField] GameObject[,] blocks;
+    int sumOfProbabilities;
+    int[] times;
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +25,13 @@ public class Map : MonoBehaviour
         blocks = new GameObject[width, height];
         if (startPos.x > width - 5) startPos.x = width - 5;
         if (startPos.y > height - 5) startPos.y = height - 5;
+        times = (int[]) maxTimes.Clone();
+        foreach (int i in probabilities)
+        {
+            sumOfProbabilities += i;
+        }
         GenerateArray();
-        
+        PlaceSpaceship();
     }
 
 
@@ -46,16 +55,50 @@ public class Map : MonoBehaviour
         }
     }
 
+    private void PlaceSpaceship()
+    {
+        for (int i = startPos.x + 1; i <= startPos.x + 4; i++)
+        {
+            for (int j = startPos.y + 3; j <= startPos.y + 4; j++ )
+            {
+                blocks[i, j].GetComponent<Block>().SetBType(BlockType.Spaceship);
+            }
+        }
+    }
+
     public void Discover(int x, int z)
     {
         GameObject secretBlock = blocks[x, z];
-        int rnd = Random.Range(0, blockPrefabs.Length);
-        blocks[x, z] = Instantiate(blockPrefabs[rnd], new Vector3(x, 0, z), Quaternion.identity);
+        int chosenBlock = -1;
+        for (int i = 0; i < blockPrefabs.Length; i++)
+        {
+            if (times[i] == 0) chosenBlock = i;
+            else times[i]--;
+        }
+        if (chosenBlock == -1)
+        {
+            chosenBlock = chooseRandomBlock();
+        }
+        times[chosenBlock] = maxTimes[chosenBlock];
+
+        blocks[x, z] = Instantiate(blockPrefabs[chosenBlock], new Vector3(x, 0, z), Quaternion.identity);
         blocks[x, z].GetComponent<Node>().x = x;
         blocks[x, z].GetComponent<Node>().z = z;
         secretBlock.GetComponent<SecretBlock>().CheckNeighbours();
         Destroy(secretBlock);
 
+    }
+
+    private int chooseRandomBlock()
+    {
+        int rnd = Random.Range(0, sumOfProbabilities);
+        int chosenBlock = -1;
+        int sum = 0;
+        do {
+            chosenBlock += 1;
+            sum += probabilities[chosenBlock];
+        } while (sum < rnd);
+        return chosenBlock;
     }
 
     public bool IsPositionCorrect(int x, int z)

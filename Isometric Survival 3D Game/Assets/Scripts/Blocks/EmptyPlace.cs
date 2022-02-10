@@ -13,7 +13,7 @@ public class EmptyPlace : MonoBehaviour, IPointerClickHandler
     Equipment equipment;
     bool readyToBuild;
     [SerializeField] float energyCost = 20;
-    [SerializeField] int woodCost = 2;
+    [SerializeField] int woodCost = 5;
     // Start is called before the first frame update
     void Start()
     {

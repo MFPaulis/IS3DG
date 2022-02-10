@@ -60,12 +60,18 @@ public class Costs : MonoBehaviour
         else if (block.GetBType() == BlockType.Shrub)
         {
             return block.transform.GetChild(0).GetComponent<Shrub>().GetEnergyCost(characterManager.GetGatheringSkill());
-        } else if (block.GetBType() == BlockType.Parts)
+        }
+        else if (block.GetBType() == BlockType.Parts)
         {
             return Parts.GetEnergyCost(characterManager.GetTechnicalSkill());
-        } else if (block.GetBType() == BlockType.Campfire)
+        }
+        else if (block.GetBType() == BlockType.Campfire)
         {
             return Campfire.GetEnergyCost(characterManager.GetCookingSkill());
+        }
+        else if (block.GetBType() == BlockType.Spaceship)
+        {
+            return Spaceship.GetEnergyCost(characterManager.GetTechnicalSkill());
         } else return 0;
     }
 }
