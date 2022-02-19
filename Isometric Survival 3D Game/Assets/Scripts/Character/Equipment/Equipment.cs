@@ -12,11 +12,21 @@ public class Equipment : MonoBehaviour
     private int cookedFood = 0;
     private int parts = 0;
 
+    [SerializeField] int maxWood = 8;
+    [SerializeField] int maxFood = 8;
+    [SerializeField] int maxCookedFood = 8;
+    [SerializeField] int maxParts = 8;
+
     [SerializeField] TextMeshProUGUI woodText;
     [SerializeField] TextMeshProUGUI partsText;
     [SerializeField] TextMeshProUGUI foodText;
     [SerializeField] TextMeshProUGUI cookedFoodText;
 
+
+    private void Start()
+    {
+        updateTexts();
+    }
     public void setToCampEquipment()
     {
         CampEquipment campEquipment = CampEquipment.campEquipment;
@@ -32,10 +42,30 @@ public class Equipment : MonoBehaviour
 
     public void updateTexts()
     {
-        woodText.text = wood.ToString();
-        partsText.text = parts.ToString();
-        foodText.text = food.ToString();
-        cookedFoodText.text = cookedFood.ToString();
+        UpdateWood();
+        UpdateParts();
+        UpdateFood();
+        UpdateCookedFood();
+    }
+
+    private void UpdateWood()
+    {
+        woodText.text = wood.ToString() + "/" + maxWood.ToString();
+    }
+    
+    private void UpdateParts()
+    {
+        partsText.text = parts.ToString() + "/" + maxParts.ToString();
+    }
+
+    private void UpdateFood()
+    {
+        foodText.text = food.ToString() + "/" + maxFood.ToString();
+    }
+
+    private void UpdateCookedFood()
+    {
+        cookedFoodText.text = cookedFood.ToString() + "/" + maxCookedFood.ToString();
     }
 
     public int GetWood()
@@ -46,14 +76,15 @@ public class Equipment : MonoBehaviour
     public void AddWood(int howMany)
     {
         wood += howMany;
-        woodText.text = wood.ToString();
+        if (wood > maxWood) wood = maxWood;
+        UpdateWood();
     }
 
     public bool RemoveWood(int howMany)
     {
         if (wood - howMany < 0) return false;
         wood -= howMany;
-        woodText.text = wood.ToString();
+        UpdateWood();
         return true;
     }
 
@@ -65,14 +96,15 @@ public class Equipment : MonoBehaviour
     public void AddParts(int howMany)
     {
         parts += howMany;
-        partsText.text = parts.ToString();
+        if (parts > maxParts) parts = maxParts;
+        UpdateParts();
     }
 
     public bool RemoveParts(int howMany)
     {
         if (parts - howMany < 0) return false;
         parts -= howMany;
-        partsText.text = parts.ToString();
+        UpdateParts();
         return true;
     }
 
@@ -84,14 +116,15 @@ public class Equipment : MonoBehaviour
     public void AddFood(int howMany)
     {
         food += howMany;
-        foodText.text = food.ToString();
+        if (food > maxFood) food = maxFood;
+        UpdateFood();
     }
 
     public bool RemoveFood(int howMany)
     {
         if (food - howMany < 0) return false;
         food -= howMany;
-        foodText.text = food.ToString();
+        UpdateFood();
         return true;
     }
 
@@ -103,14 +136,49 @@ public class Equipment : MonoBehaviour
     public void AddCookedFood(int howMany)
     {
         cookedFood += howMany;
-        cookedFoodText.text = cookedFood.ToString();
+        if (cookedFood > maxCookedFood) cookedFood = maxCookedFood;
+        UpdateCookedFood();
     }
 
     public bool RemoveCookedFood(int howMany)
     {
         if (cookedFood - howMany < 0) return false;
         cookedFood -= howMany;
-        cookedFoodText.text = cookedFood.ToString();
+        UpdateCookedFood();
         return true;
     }
+
+    public int Get(ItemType itemType)
+    {
+        switch(itemType)
+        {
+            case ItemType.WOOD:
+                return wood;
+            case ItemType.PARTS:
+                return parts;
+            case ItemType.FOOD:
+                return food;
+            case ItemType.COOKEDFOOD:
+                return cookedFood;
+        }
+        return wood;
+    }
+
+    public int GetMax(ItemType itemType)
+    {
+        switch (itemType)
+        {
+            case ItemType.WOOD:
+                return maxWood;
+            case ItemType.PARTS:
+                return maxParts;
+            case ItemType.FOOD:
+                return maxFood;
+            case ItemType.COOKEDFOOD:
+                return maxCookedFood;
+        }
+        return maxWood;
+    }
+
+
 }

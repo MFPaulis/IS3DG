@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
 
 public class EquipmentBackground : MonoBehaviour, IDropHandler
 {
@@ -16,13 +17,13 @@ public class EquipmentBackground : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("Drop!");
         GameObject ptrDrag = eventData.pointerDrag;
         if (ptrDrag != null)
         {
             Item item = ptrDrag.GetComponent<Item>();
             int owner = item.GetOwner();
             Equipment equipment;
+            Equipment equipment2;
             if (owner == 0 || owner == 1)
             {
                 equipment = characterManager.characters[owner].GetComponent<Equipment>();
@@ -30,23 +31,16 @@ public class EquipmentBackground : MonoBehaviour, IDropHandler
             {
                 equipment = Tent.activeTent.gameObject.GetComponent<Equipment>();
             }
-            ItemType itemType = item.GetItemType();
-            int maxItems = equipment.GetWood();
-            switch (itemType)
+            if (receiver == 0 || receiver == 1)
             {
-                case ItemType.WOOD:
-                    maxItems = equipment.GetWood();
-                    break;
-                case ItemType.PARTS:
-                    maxItems = equipment.GetParts();
-                    break;
-                case ItemType.FOOD:
-                    maxItems = equipment.GetFood();
-                    break;
-                case ItemType.COOKEDFOOD:
-                    maxItems = equipment.GetCookedFood();
-                    break;
+                equipment2 = characterManager.characters[receiver].GetComponent<Equipment>();
             }
+            else
+            {
+                equipment2 = Tent.activeTent.gameObject.GetComponent<Equipment>();
+            }
+            ItemType itemType = item.GetItemType();
+            int maxItems = Math.Min(equipment.Get(itemType), equipment2.GetMax(itemType) - equipment2.Get(itemType));
             Transfer.Instance.Show(0, maxItems, owner, receiver, itemType);
             gameObject.SetActive(false);
         }

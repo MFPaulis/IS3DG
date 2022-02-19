@@ -592,6 +592,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d43194499af3a458327d9ea86e4df8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxWood: 6
+  maxFood: 4
+  maxCookedFood: 4
+  maxParts: 5
   woodText: {fileID: 1577293868}
   partsText: {fileID: 1130410775}
   foodText: {fileID: 2044249477}
@@ -5429,6 +5433,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d43194499af3a458327d9ea86e4df8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxWood: 6
+  maxFood: 4
+  maxCookedFood: 4
+  maxParts: 5
   woodText: {fileID: 1465581506}
   partsText: {fileID: 375623797}
   foodText: {fileID: 33488835}
