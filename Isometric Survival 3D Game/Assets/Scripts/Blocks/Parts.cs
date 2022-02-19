@@ -23,7 +23,6 @@ public class Parts : MonoBehaviour
         map = FindObjectOfType<Map>();
         block = transform.parent.gameObject;
         characterManager = FindObjectOfType<CharacterManager>();
-        equipment = FindObjectOfType<Equipment>();
         Node node = block.GetComponent<Node>();
         x = node.x;
         z = node.z;
@@ -46,6 +45,7 @@ public class Parts : MonoBehaviour
         {
             characterMovement = characterManager.GetCharacterMovement();
             energy = characterManager.GetEnergy();
+            equipment = characterManager.GetEquipment();
             currentEnergyCost = energyCost[characterManager.GetTechnicalSkill()];
             if (!characterMovement.IsMoving())
             {

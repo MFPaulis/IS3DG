@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PathDrawing : MonoBehaviour
 {
     Map map;
     CharacterManager characterManager;
     CharacterMovement characterMovement;
+    CampEquipment campEquipment;
     Energy energy;
     List<Node> nodes = new List<Node>();
     bool pathShowed;
@@ -18,6 +20,7 @@ public class PathDrawing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        campEquipment = CampEquipment.campEquipment;
         characterManager = FindObjectOfType<CharacterManager>();
         map = FindObjectOfType<Map>();
         characterMovement = FindObjectOfType<CharacterMovement>();
@@ -29,12 +32,12 @@ public class PathDrawing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             costs.Clear();
+            campEquipment.gameObject.SetActive(false);
             characterMovement = characterManager.GetCharacterMovement();
             energy = characterManager.GetEnergy();
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             /*RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
@@ -51,7 +54,10 @@ public class PathDrawing : MonoBehaviour
                 {
                     int x = hitObject.GetComponent<Node>().x;
                     int z = hitObject.GetComponent<Node>().z;
-                    if (pathShowed && xGoal == x && zGoal == z)
+                    if (hitObject.GetComponent<Block>().GetBType() == BlockType.Secret)
+                    {
+                        hitObject.GetComponent<Block>().BlockClicked();
+                    } else if (pathShowed && xGoal == x && zGoal == z)
                     {
                         hitObject.GetComponent<Block>().BlockClicked();
                         ErasePath();
@@ -63,6 +69,11 @@ public class PathDrawing : MonoBehaviour
                         xGoal = x;
                         zGoal = z;
                         costs.ShowCosts(x, z, hitObject.GetComponent<Block>());
+                        if(hitObject.GetComponent<Block>().GetBType() == BlockType.Tent)
+                        {
+                            Tent.activeTent = hitObject;
+                            hitObject.GetComponent<Tent>().showEquipment();
+                        }
                     }
                 }
                 else if (pathShowed)
@@ -71,13 +82,27 @@ public class PathDrawing : MonoBehaviour
                 }
             }
         }
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            {
+                GameObject hitObject = hit.collider.gameObject;
+                if (hitObject.GetComponent<EmptyPlace>())
+                {
+                    hitObject.GetComponent<EmptyPlace>().ClickedRight();
+                }
+            }
+
+        }
     }
 
     private void DrawPath(int x, int z)
     {
 
         nodes = characterMovement.FindPathFromCharacter(x, z);
-        if (nodes != null && energy.GetEnergy() >= characterMovement.getEnergyCost() * (nodes.Count - 1))
+        if (nodes != null)//&& energy.GetEnergy() >= characterMovement.getEnergyCost() * (nodes.Count - 1))
         {
             foreach (Node node in nodes)
             {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     private int currentCharacter;
-    [SerializeField] GameObject[] characters;
+    public GameObject[] characters;
     [SerializeField] GameObject[] cameras;
 
     private void Start()
@@ -72,6 +72,11 @@ public class CharacterManager : MonoBehaviour
     public GameObject GetCamera()
     {
         return cameras[currentCharacter];
+    }
+
+    public Equipment GetEquipment()
+    {
+        return characters[currentCharacter].GetComponent<Equipment>();
     }
 
 }

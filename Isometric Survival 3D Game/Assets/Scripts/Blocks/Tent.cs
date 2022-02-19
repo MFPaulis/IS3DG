@@ -9,11 +9,16 @@ public class Tent : MonoBehaviour
     CharacterManager characterManager;
     Energy energy;
     CharacterMovement characterMovement;
-
+    Equipment equipment;
+    CampEquipment campEquipment;
+    public static GameObject activeTent;
 
     // Start is called before the first frame update
     void Start()
     {
+        campEquipment = CampEquipment.campEquipment;
+        equipment = GetComponent<Equipment>();
+        equipment.setToCampEquipment();
         map = FindObjectOfType<Map>();
         characterManager = FindObjectOfType<CharacterManager>();
         Node node = gameObject.GetComponent<Node>();
@@ -21,11 +26,12 @@ public class Tent : MonoBehaviour
         z = node.z;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void showEquipment()
     {
-        
+        campEquipment.gameObject.SetActive(true);
+        equipment.updateTexts();
     }
+
 
     public void Clicked()
     {

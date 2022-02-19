@@ -47,7 +47,7 @@ public class SecretBlock : MonoBehaviour
         }
     }
 
-    private void OnMouseUpAsButton()
+    public void Clicked()
     {
         characterMovement = characterManager.GetCharacterMovement();
         energy = characterManager.GetEnergy();

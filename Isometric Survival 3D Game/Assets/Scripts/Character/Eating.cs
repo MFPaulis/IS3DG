@@ -14,7 +14,6 @@ public class Eating : MonoBehaviour
     void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
-        equipment = FindObjectOfType<Equipment>();
     }
 
     // Update is called once per frame
@@ -26,6 +25,7 @@ public class Eating : MonoBehaviour
     public void eatFood()
     {
         life = characterManager.GetLife();
+        equipment = characterManager.GetEquipment();
         if (equipment.GetFood() > 0)
         {
             GetComponent<AudioSource>().Play();
@@ -37,6 +37,7 @@ public class Eating : MonoBehaviour
     public void eatCookedFood()
     {
         life = characterManager.GetLife();
+        equipment = characterManager.GetEquipment();
         if (equipment.GetCookedFood() > 0)
         {
             GetComponent<AudioSource>().Play();

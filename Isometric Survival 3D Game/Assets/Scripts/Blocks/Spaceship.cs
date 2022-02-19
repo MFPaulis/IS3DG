@@ -21,7 +21,6 @@ public class Spaceship : MonoBehaviour
     private void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
-        equipment = FindObjectOfType<Equipment>();
     }
 
     private void Update()
@@ -42,6 +41,7 @@ public class Spaceship : MonoBehaviour
     {
         characterMovement = characterManager.GetCharacterMovement();
         energy = characterManager.GetEnergy();
+        equipment = characterManager.GetEquipment();
         currentEnergyCost = energyCost[characterManager.GetTechnicalSkill()];
         if (!characterMovement.IsMoving())
         {

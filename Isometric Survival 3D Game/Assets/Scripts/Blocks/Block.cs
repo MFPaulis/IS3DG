@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BlockType {Empty, Woods, Shrub, Parts, Tent, Campfire, Spaceship};
+public enum BlockType {Empty, Woods, Shrub, Parts, Tent, Campfire, Spaceship, Secret};
 
 public class Block : MonoBehaviour
 {
@@ -39,6 +39,9 @@ public class Block : MonoBehaviour
             int x = GetComponent<Node>().x;
             int z = GetComponent<Node>().z;
             FindObjectOfType<Spaceship>().Clicked(x, z);
+        } else if (bType == BlockType.Secret)
+        {
+            GetComponent<SecretBlock>().Clicked();
         }
     }
 

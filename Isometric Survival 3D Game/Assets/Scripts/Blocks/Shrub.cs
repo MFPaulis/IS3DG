@@ -7,6 +7,7 @@ public class Shrub : MonoBehaviour
     int x, z;
     CharacterManager characterManager;
     CharacterMovement characterMovement;
+    Map map;
     float currentEnergyCost;
     Energy energy;
     Equipment equipment;
@@ -24,9 +25,9 @@ public class Shrub : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        map = FindObjectOfType<Map>();
         berries = gameObject.transform.GetChild(0).gameObject;
         characterManager = FindObjectOfType<CharacterManager>();
-        equipment = FindObjectOfType<Equipment>();
         block = transform.parent.gameObject;
         node = block.GetComponent<Node>();
         x = node.x;
@@ -49,6 +50,8 @@ public class Shrub : MonoBehaviour
             } else
             {
                 equipment.AddWood(addedWood);
+                transform.SetParent(null, true);
+                map.Clean(x, z);
                 Destroy(gameObject);
             }
         }
@@ -58,6 +61,7 @@ public class Shrub : MonoBehaviour
     {
         characterMovement = characterManager.GetCharacterMovement();
         energy = characterManager.GetEnergy();
+        equipment = characterManager.GetEquipment();
         currentEnergyCost = GetEnergyCost(characterManager.GetGatheringSkill());
         if (!characterMovement.IsMoving() && !readyToGatherOrCut)
         {

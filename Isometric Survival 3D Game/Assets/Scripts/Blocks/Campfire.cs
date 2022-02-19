@@ -19,7 +19,6 @@ public class Campfire : MonoBehaviour
     void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
-        equipment = FindObjectOfType<Equipment>();
         Node node = gameObject.GetComponent<Node>();
         x = node.x;
         z = node.z;
@@ -43,6 +42,7 @@ public class Campfire : MonoBehaviour
     {
         characterMovement = characterManager.GetCharacterMovement();
         energy = characterManager.GetEnergy();
+        equipment = characterManager.GetEquipment();
         currentEnergyCost = energyCost[characterManager.GetCookingSkill()];
         if (!characterMovement.IsMoving())
         {

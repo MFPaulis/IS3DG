@@ -22,7 +22,6 @@ public class Woods : MonoBehaviour
         map = FindObjectOfType<Map>();
         block = transform.parent.gameObject;
         characterManager = FindObjectOfType<CharacterManager>();
-        equipment = FindObjectOfType<Equipment>();
         Node node = block.GetComponent<Node>();
         x = node.x;
         z = node.z;
@@ -54,6 +53,7 @@ public class Woods : MonoBehaviour
         {
             characterMovement = characterManager.GetCharacterMovement();
             energy = characterManager.GetEnergy();
+            equipment = characterManager.GetEquipment();
             if (!characterMovement.IsMoving() && !readyToCutDown)
             {
                 transform.parent.GetComponent<Node>().walkable = true;

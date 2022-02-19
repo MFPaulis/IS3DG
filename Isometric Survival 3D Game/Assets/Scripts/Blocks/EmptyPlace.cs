@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class EmptyPlace : MonoBehaviour, IPointerClickHandler
+public class EmptyPlace : MonoBehaviour
 {
     int x, z;
     Map map;
@@ -19,7 +19,6 @@ public class EmptyPlace : MonoBehaviour, IPointerClickHandler
     {
         map = FindObjectOfType<Map>();
         characterManager = FindObjectOfType<CharacterManager>();
-        equipment = FindObjectOfType<Equipment>();
         Node node = gameObject.GetComponent<Node>();
         x = node.x;
         z = node.z;
@@ -51,15 +50,35 @@ public class EmptyPlace : MonoBehaviour, IPointerClickHandler
             }
         }
     }
-
+    /*
     public void OnPointerClick(PointerEventData eventData)
     {
         if(!readyToBuild)
         {
             characterMovement = characterManager.GetCharacterMovement();
             energy = characterManager.GetEnergy();
-
+            equipment = characterManager.GetEquipment();
             if (eventData.button == PointerEventData.InputButton.Right && !characterMovement.IsMoving())
+            {
+                List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
+                if (nodes != null && energy.GetEnergy()
+                    >= characterMovement.getEnergyCost() * (nodes.Count - 1) + energyCost
+                    && equipment.GetWood() >= woodCost && (characterMovement.MoveToPoint(x, z)))
+                {
+                    readyToBuild = true;
+                }
+            }
+        }
+    }*/
+
+    public void ClickedRight()
+    {
+        if (!readyToBuild)
+        {
+            characterMovement = characterManager.GetCharacterMovement();
+            energy = characterManager.GetEnergy();
+            equipment = characterManager.GetEquipment();
+            if (!characterMovement.IsMoving())
             {
                 List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
                 if (nodes != null && energy.GetEnergy()

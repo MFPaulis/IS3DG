@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+public enum ItemType {WOOD, PARTS, FOOD, COOKEDFOOD};
+
 public class Equipment : MonoBehaviour
 {
     private int wood = 0;
@@ -15,13 +17,25 @@ public class Equipment : MonoBehaviour
     [SerializeField] TextMeshProUGUI foodText;
     [SerializeField] TextMeshProUGUI cookedFoodText;
 
-
-    private void Update()
+    public void setToCampEquipment()
     {
-        woodText.text = "wood: " + wood.ToString();
-        partsText.text = "parts: " + parts.ToString();
-        foodText.text = "food: " + food.ToString();
-        cookedFoodText.text = "cooked food: " + cookedFood.ToString();
+        CampEquipment campEquipment = CampEquipment.campEquipment;
+        woodText = campEquipment.GetWoodText();
+        partsText = campEquipment.GetPartsText();
+        foodText = campEquipment.GetFoodText();
+        cookedFoodText = campEquipment.GetCookedFoodText();
+        woodText.text = wood.ToString();
+        partsText.text = parts.ToString();
+        foodText.text = food.ToString();
+        cookedFoodText.text = cookedFood.ToString();
+    }
+
+    public void updateTexts()
+    {
+        woodText.text = wood.ToString();
+        partsText.text = parts.ToString();
+        foodText.text = food.ToString();
+        cookedFoodText.text = cookedFood.ToString();
     }
 
     public int GetWood()
@@ -32,12 +46,14 @@ public class Equipment : MonoBehaviour
     public void AddWood(int howMany)
     {
         wood += howMany;
+        woodText.text = wood.ToString();
     }
 
     public bool RemoveWood(int howMany)
     {
         if (wood - howMany < 0) return false;
         wood -= howMany;
+        woodText.text = wood.ToString();
         return true;
     }
 
@@ -49,12 +65,14 @@ public class Equipment : MonoBehaviour
     public void AddParts(int howMany)
     {
         parts += howMany;
+        partsText.text = parts.ToString();
     }
 
     public bool RemoveParts(int howMany)
     {
         if (parts - howMany < 0) return false;
         parts -= howMany;
+        partsText.text = parts.ToString();
         return true;
     }
 
@@ -66,12 +84,14 @@ public class Equipment : MonoBehaviour
     public void AddFood(int howMany)
     {
         food += howMany;
+        foodText.text = food.ToString();
     }
 
     public bool RemoveFood(int howMany)
     {
         if (food - howMany < 0) return false;
         food -= howMany;
+        foodText.text = food.ToString();
         return true;
     }
 
@@ -83,12 +103,14 @@ public class Equipment : MonoBehaviour
     public void AddCookedFood(int howMany)
     {
         cookedFood += howMany;
+        cookedFoodText.text = cookedFood.ToString();
     }
 
     public bool RemoveCookedFood(int howMany)
     {
         if (cookedFood - howMany < 0) return false;
         cookedFood -= howMany;
+        cookedFoodText.text = cookedFood.ToString();
         return true;
     }
 }
