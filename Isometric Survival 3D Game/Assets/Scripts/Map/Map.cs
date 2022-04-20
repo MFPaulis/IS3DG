@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-    [Range(5, 20)]
+    [Range(5, 100)]
     [SerializeField] int width;
-    [Range(5, 20)]
+    [Range(5, 100)]
     [SerializeField] int height;
     [SerializeField] Vector2Int startPos;
     [SerializeField] GameObject secretBlock;
     [SerializeField] GameObject blockTent;
     [SerializeField] GameObject blockFire;
     [SerializeField] GameObject [] blockPrefabs;
+    [SerializeField] GameObject character1;
+    [SerializeField] GameObject character2;
+    [SerializeField] GameObject spaceship;
     [SerializeField] int[] probabilities;
     [SerializeField] int[] maxTimes;
     [SerializeField] GameObject[,] blocks;
@@ -25,6 +28,9 @@ public class Map : MonoBehaviour
         blocks = new GameObject[width, height];
         if (startPos.x > width - 5) startPos.x = width - 5;
         if (startPos.y > height - 5) startPos.y = height - 5;
+        character1.transform.position = new Vector3(startPos.x + 1, 1, startPos.y + 1);
+        character2.transform.position = new Vector3(startPos.x + 3, 1, startPos.y + 1);
+        spaceship.transform.position = new Vector3(startPos.x + 1.97f, 1.57f, startPos.y + 2.95f);
         times = (int[]) maxTimes.Clone();
         foreach (int i in probabilities)
         {

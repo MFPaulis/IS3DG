@@ -114,7 +114,7 @@ public class PathDrawing : MonoBehaviour
         }
     }
 
-    private void ErasePath()
+    public void ErasePath()
     {
         if (nodes != null)
         {

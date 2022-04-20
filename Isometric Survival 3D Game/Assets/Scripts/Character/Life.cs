@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Life : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class Life : MonoBehaviour
         if (life <= 0)
         {
             life = 0;
-            Debug.Log("Game Over");
+            SceneManager.LoadScene("GameOver");
         }
     }
 

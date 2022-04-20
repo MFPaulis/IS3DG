@@ -7,6 +7,7 @@ public class CharacterManager : MonoBehaviour
     private int currentCharacter;
     public GameObject[] characters;
     [SerializeField] GameObject[] cameras;
+    [SerializeField] PathDrawing pathDrawing;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class CharacterManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            pathDrawing.ErasePath();
             changeCharacter();
         }
     }

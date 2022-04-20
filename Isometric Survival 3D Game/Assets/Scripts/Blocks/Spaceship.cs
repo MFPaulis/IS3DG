@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Spaceship : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class Spaceship : MonoBehaviour
             float percentage = repairProgress / requiredParts * 100;
             text.text = percentage + "%";
             readyToRepair = false;
+            if (repairProgress >= requiredParts)
+            {
+                SceneManager.LoadScene("Win");
+            }
         }
     }
 

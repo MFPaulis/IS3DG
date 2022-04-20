@@ -1719,9 +1719,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb6d63e52df916046851dfdc78e785cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 15
-  height: 15
-  startPos: {x: 5, y: 5}
+  width: 50
+  height: 50
+  startPos: {x: 20, y: 20}
   secretBlock: {fileID: 8277481045435804402, guid: 4921f942b8a41614c8f4ef2ab64821fd, type: 3}
   blockTent: {fileID: 2742450942201912095, guid: 34d1d02f401506947b606cf86bbeb364, type: 3}
   blockFire: {fileID: 8912929013023435969, guid: 13f8b4c9768b04240b94e234e2e72e3c, type: 3}
@@ -1730,6 +1730,9 @@ MonoBehaviour:
   - {fileID: 4192682945639914760, guid: 262a885fbd137e44cb5f9ebf5d57589a, type: 3}
   - {fileID: 179939733463255445, guid: 4b74ccf86ca1e8245bf6939bd3c39592, type: 3}
   - {fileID: 179939733463255445, guid: 03d4a5494200b0f4687190eb7b58194a, type: 3}
+  character1: {fileID: 293615675}
+  character2: {fileID: 2946891679221201268}
+  spaceship: {fileID: 1163339692}
   probabilities: 05000000030000000100000001000000
   maxTimes: 1e000000190000001400000014000000
 --- !u!4 &537397648
@@ -2434,6 +2437,7 @@ MonoBehaviour:
   cameras:
   - {fileID: 1806711276}
   - {fileID: 406912834}
+  pathDrawing: {fileID: 537397651}
 --- !u!4 &810052262
 Transform:
   m_ObjectHideFlags: 0
