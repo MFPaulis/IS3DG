@@ -19,12 +19,14 @@ public class Map : MonoBehaviour
     [SerializeField] int[] probabilities;
     [SerializeField] int[] maxTimes;
     [SerializeField] GameObject[,] blocks;
+    AnimalManager animalManager;
     int sumOfProbabilities;
     int[] times;
 
     // Start is called before the first frame update
     void Start()
     {
+        animalManager = FindObjectOfType<AnimalManager>();
         blocks = new GameObject[width, height];
         if (startPos.x > width - 5) startPos.x = width - 5;
         if (startPos.y > height - 5) startPos.y = height - 5;
@@ -90,6 +92,10 @@ public class Map : MonoBehaviour
         blocks[x, z] = Instantiate(blockPrefabs[chosenBlock], new Vector3(x, 0, z), Quaternion.identity);
         blocks[x, z].GetComponent<Node>().x = x;
         blocks[x, z].GetComponent<Node>().z = z;
+        if(blocks[x,z].GetComponent<Block>().IsAnimal())
+        {
+            animalManager.AddAnimal(blocks[x,z].transform.GetChild(0).gameObject.GetComponent<Animal>());
+        }
         secretBlock.GetComponent<SecretBlock>().CheckNeighbours();
         Destroy(secretBlock);
 
@@ -120,6 +126,10 @@ public class Map : MonoBehaviour
 
     public GameObject GetBlock(int x, int z)
     {
+        if(x < 0 || z < 0 || x >= width || z >= height)
+        {
+            return null;
+        }
         return blocks[x, z];
     }
 

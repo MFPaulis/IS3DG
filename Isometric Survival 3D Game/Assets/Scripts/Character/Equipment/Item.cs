@@ -15,6 +15,7 @@ public class Item : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     EquipmentBackground bg0, bg1, bg2;
     CharacterMovement charMov0, charMov1;
     Vector2 startPos;
+    TimeManager timeManager;
     [SerializeField] int owner; //0,1,2 2-obóz
     [SerializeField] ItemType itemType;
 
@@ -27,6 +28,7 @@ public class Item : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     private void Start()
     {
+        timeManager = FindObjectOfType<TimeManager>();
         trueParent = transform.parent;
         dragParent = GameObject.Find("Dragged").transform; 
         startPos = transform.position;
@@ -39,42 +41,48 @@ public class Item : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor; 
+        if(timeManager.IsDay())
+        {
+            rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor; 
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        gameObject.transform.SetParent(dragParent, true);
-        canvasGroup.blocksRaycasts = false;
-        int char0x = charMov0.GetX();
-        int char0z = charMov0.GetZ();
-        int char1x = charMov1.GetX();
-        int char1z = charMov1.GetZ();
-        bool near02 = false;
-        bool near12 = false;
-        if (Tent.activeTent != null)
+        if(timeManager.IsDay())
         {
-            int tentx = (int)Math.Round(Tent.activeTent.gameObject.transform.position.x);
-            int tentz = (int)Math.Round(Tent.activeTent.gameObject.transform.position.z);
-            near02 = AreWeNear(char0x, char0z, tentx, tentz);
-            near12 = AreWeNear(char1x, char1z, tentx, tentz);
-        }
-        bool near01 = AreWeNear(char0x, char0z, char1x, char1z);
+            gameObject.transform.SetParent(dragParent, true);
+            canvasGroup.blocksRaycasts = false;
+            int char0x = charMov0.GetX();
+            int char0z = charMov0.GetZ();
+            int char1x = charMov1.GetX();
+            int char1z = charMov1.GetZ();
+            bool near02 = false;
+            bool near12 = false;
+            if (Tent.activeTent != null)
+            {
+                int tentx = (int)Math.Round(Tent.activeTent.gameObject.transform.position.x);
+                int tentz = (int)Math.Round(Tent.activeTent.gameObject.transform.position.z);
+                near02 = AreWeNear(char0x, char0z, tentx, tentz);
+                near12 = AreWeNear(char1x, char1z, tentx, tentz);
+            }
+            bool near01 = AreWeNear(char0x, char0z, char1x, char1z);
 
-        switch(owner)
-        {
-            case 0:
-                if (near01) bg1.Show();
-                if (near02) bg2.Show();
-                break;
-            case 1:
-                if (near01) bg0.Show();
-                if (near12) bg2.Show();
-                break;
-            case 2:
-                if (near02) bg0.Show();
-                if (near12) bg1.Show();
-                break;
+            switch (owner)
+            {
+                case 0:
+                    if (near01) bg1.Show();
+                    if (near02) bg2.Show();
+                    break;
+                case 1:
+                    if (near01) bg0.Show();
+                    if (near12) bg2.Show();
+                    break;
+                case 2:
+                    if (near02) bg0.Show();
+                    if (near12) bg1.Show();
+                    break;
+            }
         }
     }
 

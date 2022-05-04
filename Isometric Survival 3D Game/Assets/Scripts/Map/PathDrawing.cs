@@ -17,7 +17,6 @@ public class PathDrawing : MonoBehaviour
     int energyCosts;
     int layerMask;
 
-    // Start is called before the first frame update
     void Start()
     {
         campEquipment = CampEquipment.campEquipment;
@@ -29,7 +28,6 @@ public class PathDrawing : MonoBehaviour
         layerMask = LayerMask.GetMask("Blocks");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -40,13 +38,6 @@ public class PathDrawing : MonoBehaviour
             energy = characterManager.GetEnergy();
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            /*RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
-            GameObject hitObject = null;
-            foreach (RaycastHit hit in hits)
-            {
-                hitObject = hit.collider.gameObject;
-                if (hitObject.GetComponent<Block>()) break;
-            }*/
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             {
                 GameObject hitObject = hit.collider.gameObject;

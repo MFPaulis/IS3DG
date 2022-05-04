@@ -8,16 +8,18 @@ public class CharacterManager : MonoBehaviour
     public GameObject[] characters;
     [SerializeField] GameObject[] cameras;
     [SerializeField] PathDrawing pathDrawing;
+    TimeManager timeManager;
 
     private void Start()
     {
+        timeManager = FindObjectOfType<TimeManager>();
         cameras[0].SetActive(true);
         cameras[1].SetActive(false);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && timeManager.IsDay())
         {
             pathDrawing.ErasePath();
             changeCharacter();

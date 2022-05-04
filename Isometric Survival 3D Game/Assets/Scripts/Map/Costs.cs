@@ -72,6 +72,11 @@ public class Costs : MonoBehaviour
         else if (block.GetBType() == BlockType.Spaceship)
         {
             return Spaceship.GetEnergyCost(characterManager.GetTechnicalSkill());
-        } else return 0;
+        }
+        else if (block.GetBType() == BlockType.Spider)
+        {
+            return Spider.GetEnergyCost(characterManager.GetGatheringSkill());
+        }
+        else return 0;
     }
 }
