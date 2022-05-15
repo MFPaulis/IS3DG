@@ -29,25 +29,31 @@ public class EmptyPlace : MonoBehaviour
     {
         if (readyToBuild && !characterMovement.IsMoving())
         {
-            energy.DecreaseEnergy(energyCost);
-            equipment.RemoveWood(woodCost);
-
-            if (z != 0 && map.GetNode(x, z - 1).walkable)
+            if (z != 0 && map.GetBlock(x, z - 1).GetComponent<Block>().GetBType() == BlockType.Empty)
             {
+                energy.DecreaseEnergy(energyCost);
+                equipment.RemoveWood(woodCost);
                 map.SetCamp(x, z, 0, -1);
             }
-            else if (x != map.GetWidth() - 1 && map.GetNode(x + 1, z).walkable)
+            else if (x != map.GetWidth() - 1 && map.GetBlock(x + 1, z).GetComponent<Block>().GetBType() == BlockType.Empty)
             {
+                energy.DecreaseEnergy(energyCost);
+                equipment.RemoveWood(woodCost);
                 map.SetCamp(x, z, 1, 0);
             }
-            else if (x != 0 && map.GetNode(x - 1, z).walkable)
+            else if (x != 0 && map.GetBlock(x - 1, z).GetComponent<Block>().GetBType() == BlockType.Empty)
             {
-                map.SetCamp(x , z, -1, 0);
+                energy.DecreaseEnergy(energyCost);
+                equipment.RemoveWood(woodCost);
+                map.SetCamp(x, z, -1, 0);
             }
-            else if (z != map.GetHeight() - 1 && map.GetNode(x, z + 1).walkable)
+            else if (z != map.GetHeight() - 1 && map.GetBlock(x, z + 1).GetComponent<Block>().GetBType() == BlockType.Empty)
             {
+                energy.DecreaseEnergy(energyCost);
+                equipment.RemoveWood(woodCost);
                 map.SetCamp(x, z, 0, 1);
             }
+            readyToBuild = false;
         }
     }
     /*

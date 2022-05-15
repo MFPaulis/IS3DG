@@ -57,6 +57,7 @@ public class TimeManager : MonoBehaviour
         if (!isDay)
         {
             darkTexture.gameObject.SetActive(true);
+            //darkTexture.color = new Color(0, 0, 0, aValue);
         }
         float alpha = darkTexture.color.a;
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
