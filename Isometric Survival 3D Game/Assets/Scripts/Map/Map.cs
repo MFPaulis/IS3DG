@@ -22,10 +22,13 @@ public class Map : MonoBehaviour
     AnimalManager animalManager;
     int sumOfProbabilities;
     int[] times;
+    List<GameObject> spaceshipBlocks = new List<GameObject>();
+    Help help;
 
     // Start is called before the first frame update
     void Start()
     {
+        help = FindObjectOfType<Help>();
         animalManager = FindObjectOfType<AnimalManager>();
         blocks = new GameObject[width, height];
         if (startPos.x > width - 5) startPos.x = width - 5;
@@ -70,6 +73,7 @@ public class Map : MonoBehaviour
             for (int j = startPos.y + 3; j <= startPos.y + 4; j++ )
             {
                 blocks[i, j].GetComponent<Block>().SetBType(BlockType.Spaceship);
+                spaceshipBlocks.Add(blocks[i, j]);
             }
         }
     }
@@ -98,7 +102,21 @@ public class Map : MonoBehaviour
         }
         secretBlock.GetComponent<SecretBlock>().CheckNeighbours();
         Destroy(secretBlock);
-
+        switch (blocks[x,z].GetComponent<Block>().GetBType())
+        {
+            case BlockType.Woods:
+                help.ShowHelp(1);
+                break;
+            case BlockType.Shrub:
+                help.ShowHelp(2);
+                break;
+            case BlockType.Parts:
+                help.ShowHelp(3);
+                break;
+            case BlockType.Spider:
+                help.ShowHelp(4);
+                break;
+        }
     }
 
     private int chooseRandomBlock()
@@ -143,6 +161,11 @@ public class Map : MonoBehaviour
         return height;
     }
 
+    public List<GameObject> GetSpaceshipBlocks()
+    {
+        return spaceshipBlocks;
+    }
+
     public void Clean(int x, int z)
     {
         Destroy(blocks[x, z]);
@@ -166,5 +189,7 @@ public class Map : MonoBehaviour
         blocks[x, z].GetComponent<Node>().x = x;
         blocks[x, z].GetComponent<Node>().z = z;
         blocks[x, z].GetComponent<Node>().walkable = false;
+
+        help.ShowHelp(5);
     }
 }

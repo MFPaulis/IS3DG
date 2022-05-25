@@ -16,6 +16,7 @@ public class PathDrawing : MonoBehaviour
     Costs costs;
     int energyCosts;
     int layerMask;
+    bool spaceshipDrawn = false;
 
     void Start()
     {
@@ -101,6 +102,11 @@ public class PathDrawing : MonoBehaviour
                 Material[] materials = block.GetComponent<Renderer>().materials;
                 materials[1].color = new Color(0.6f, 1f, 0.6f, 1);
             }
+            if (map.GetBlock(x,z).GetComponent<Block>().GetBType() == BlockType.Spaceship)
+            {
+                DrawSpaceship();
+                spaceshipDrawn = true;
+            }
             pathShowed = true;
         }
     }
@@ -116,7 +122,32 @@ public class PathDrawing : MonoBehaviour
                 materials[1].color = new Color(0.87f, 0.97f, 1, 1);
             }
             nodes.Clear();
+            if (spaceshipDrawn)
+            {
+                EraseSpaceship();
+            }
         }
         pathShowed = false;
+    }
+
+    public void DrawSpaceship()
+    {
+        List <GameObject> spaceshipBlocks = map.GetSpaceshipBlocks();
+        foreach (GameObject block in spaceshipBlocks)
+        {
+            Material[] materials = block.GetComponent<Renderer>().materials;
+            materials[1].color = new Color(0.6f, 1f, 0.6f, 1);
+        }
+    }
+
+    public void EraseSpaceship()
+    {
+        List<GameObject> spaceshipBlocks = map.GetSpaceshipBlocks();
+        foreach (GameObject block in spaceshipBlocks)
+        {
+            Material[] materials = block.GetComponent<Renderer>().materials;
+            materials[1].color = new Color(0.87f, 0.97f, 1, 1);
+        }
+        spaceshipDrawn = false;
     }
 }

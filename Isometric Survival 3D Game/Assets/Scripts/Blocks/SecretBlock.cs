@@ -8,12 +8,14 @@ public class SecretBlock : MonoBehaviour
     Map map;
     CharacterManager characterManager;
     CharacterMovement characterMovement;
+    PathDrawing pathDrawing;
     Energy energy;
     List<GameObject> neighbours = new List<GameObject>();
     [SerializeField] float energyCost = 10;
 
     private void Start()
     {
+        pathDrawing = FindObjectOfType<PathDrawing>();
         map = FindObjectOfType<Map>();
         characterManager = FindObjectOfType<CharacterManager>();
         Node node = gameObject.GetComponent<Node>();
@@ -59,6 +61,7 @@ public class SecretBlock : MonoBehaviour
             if (nodes != null && energy.GetEnergy()
                 >= characterMovement.getEnergyCost() * (nodes.Count-2) + energyCost)
             {
+                pathDrawing.ErasePath();
                 energy.DecreaseEnergy(energyCost);
                 Node secondToLastNode = nodes[nodes.Count - 2];
                 Node lastNode = nodes[nodes.Count - 1];

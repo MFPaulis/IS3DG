@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TimeManager : MonoBehaviour
 {
     bool isDay = true;
+    bool darkScreen = false;
     [SerializeField] Image darkTexture;
     [SerializeField] Button foodButton;
     [SerializeField] Button cookedFoodButton;
@@ -45,10 +46,15 @@ public class TimeManager : MonoBehaviour
     IEnumerator Night()
     {
         animalManager.MoveAnimals();
+        while (!darkScreen)
+        {
+            yield return null;
+        }
         while(animalManager.IsMoving())
         {
             yield return new WaitForSeconds(1);
         }
+        darkScreen = false;
         ChangeTime();
     }
 
@@ -57,7 +63,6 @@ public class TimeManager : MonoBehaviour
         if (!isDay)
         {
             darkTexture.gameObject.SetActive(true);
-            //darkTexture.color = new Color(0, 0, 0, aValue);
         }
         float alpha = darkTexture.color.a;
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
@@ -66,6 +71,7 @@ public class TimeManager : MonoBehaviour
             darkTexture.color = newColor;
             yield return null;
         }
+        if (!isDay) darkScreen = true;
         if (isDay)
         {
             darkTexture.gameObject.SetActive(false);
