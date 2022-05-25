@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8684955ffa904644cbf290b3ad9c85cd
+guid: 343ba0c6be55b034899cf69d250f0026
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -104,148 +104,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: propsall_0
+      name: icons_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 577
-        width: 339
-        height: 369
+        x: 48
+        y: 0
+        width: 244
+        height: 295
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ce86975505042147b84e5fb03e61ae1
-      internalID: -433302377
+      spriteID: b4609a1a721067e4e98449bef161b40b
+      internalID: -2145346111
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: propsall_1
+      name: icons_1
       rect:
         serializedVersion: 2
-        x: 577
-        y: 665
-        width: 361
-        height: 219
+        x: 347
+        y: 0
+        width: 243
+        height: 300
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dffc1ac845b4a7a408a8694d3597c29e
-      internalID: -1570589370
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: propsall_2
-      rect:
-        serializedVersion: 2
-        x: 631
-        y: 666
-        width: 58
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 66e8384f69fc2554b88d00cc6c819e67
-      internalID: -1740831759
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: propsall_3
-      rect:
-        serializedVersion: 2
-        x: 885
-        y: 699
-        width: 52
-        height: 50
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4492243554c8efd469a08192f61a7a03
-      internalID: -911009408
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: propsall_4
-      rect:
-        serializedVersion: 2
-        x: 543
-        y: 156
-        width: 470
-        height: 361
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: edb8f0cea225bbe44ad088c532108de3
-      internalID: 1088036571
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: propsall_5
-      rect:
-        serializedVersion: 2
-        x: 563
-        y: 457
-        width: 73
-        height: 54
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 61d75d0f79966654e95901ac448a0204
-      internalID: 1582641963
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: propsall_6
-      rect:
-        serializedVersion: 2
-        x: 61
-        y: 92
-        width: 389
-        height: 353
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9477839d4bd2036478f6385066ff54ec
-      internalID: 324282212
+      spriteID: 36dd6af147b122b4090b7abad675b183
+      internalID: 1387540598
       vertices: []
       indices: 
       edges: []
@@ -253,21 +148,16 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 9b9c9641716beaf4491cb003510ff228
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      propsall_3: -911009408
-      propsall_1: -1570589370
-      propsall_4: 1088036571
-      propsall_2: -1740831759
-      propsall_0: -433302377
-      propsall_5: 1582641963
-      propsall_6: 324282212
+      icons_0: -2145346111
+      icons_1: 1387540598
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
