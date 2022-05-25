@@ -19,6 +19,8 @@ public class Item : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     [SerializeField] int owner; //0,1,2 2-obóz
     [SerializeField] ItemType itemType;
 
+    public Eating eating;
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -38,6 +40,8 @@ public class Item : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         bg2 = CampEquipment.campEquipment.gameObject.transform.Find("Background").GetComponent<EquipmentBackground>();
         charMov0 = characterManager.characters[0].GetComponent<CharacterMovement>();
         charMov1 = characterManager.characters[1].GetComponent<CharacterMovement>();
+
+        eating = GameObject.Find("GameManager").GetComponent<Eating>();
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -91,9 +95,39 @@ public class Item : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         gameObject.transform.SetParent(trueParent, true);
         canvasGroup.blocksRaycasts = true;
         transform.position = startPos;
+
+        switch(owner)
+        {
+            case 0:
+                if (charMov0.isMouseOver)
+                    eatItem();
+                break;
+            case 1:
+                if (charMov1.isMouseOver)
+                    eatItem();
+                break;
+            default:
+                break;
+        }
+
         bg0.Hide();
         bg1.Hide();
         bg2.Hide();
+    }
+
+    private void eatItem()
+    {
+        switch (itemType)
+        {
+            case ItemType.FOOD:
+                eating.eatFood();
+                break;
+            case ItemType.COOKEDFOOD:
+                eating.eatCookedFood();
+                break;
+            default:
+                break;
+        }
     }
 
     private bool AreWeNear(int x, int y, int x2, int y2)

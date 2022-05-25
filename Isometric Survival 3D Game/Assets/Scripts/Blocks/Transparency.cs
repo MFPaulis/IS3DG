@@ -14,6 +14,7 @@ public class Transparency : MonoBehaviour
             float colorG = materials[i].GetColor("_Color").g;
             float colorB = materials[i].GetColor("_Color").b;
             materials[i].color = new Color(colorR, colorG, colorB, 0.5f);
+            materials[i].SetFloat("_Opacity", 0.5f);
         }
     }
 
@@ -27,6 +28,8 @@ public class Transparency : MonoBehaviour
             float colorG = materials[i].GetColor("_Color").g;
             float colorB = materials[i].GetColor("_Color").b;
             materials[i].color = new Color(colorR, colorG, colorB, 1.0f);
+            materials[i].SetFloat("_Opacity", 1.0f);
+
         }
     }
 }

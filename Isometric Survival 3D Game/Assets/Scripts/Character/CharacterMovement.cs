@@ -16,6 +16,8 @@ public class CharacterMovement : MonoBehaviour
     Map map;
     bool isMoving = false;
 
+    public bool isMouseOver = false;
+
     private void Start()
     {
         pathFinding = FindObjectOfType<PathFinding>();
@@ -26,7 +28,17 @@ public class CharacterMovement : MonoBehaviour
         character = gameObject.transform.Find("character");
 
     }
-    
+
+    private void OnMouseEnter()
+    {
+        isMouseOver = true;
+    }
+
+    private void OnMouseExit()
+    {
+        isMouseOver = false;   
+    }
+
     public int GetX()
     {
         return (int)Math.Round(transform.position.x);
