@@ -34,6 +34,7 @@ public class GUIManager : MonoBehaviour
     public void setActiveCharacter0()
     {
         character0.localScale = new Vector2(1, 1);
+        character0.anchoredPosition = new Vector2(50, -61.25f);
         chara0Face.color = new Color32(255, 255, 255, 225);
         chara0EnergyBar.color = new Color32(58, 236, 25, 225);
         chara0LifeBar.color = new Color32(190, 28, 44, 225);
@@ -49,6 +50,7 @@ public class GUIManager : MonoBehaviour
     public void setActiveCharacter1()
     {
         character0.localScale = new Vector2(0.8f, 0.8f);
+        character0.anchoredPosition = new Vector2(40.2f, -50);
         chara0Face.color = new Color32(255, 255, 255, 125);
         chara0EnergyBar.color = new Color32(83, 192, 83, 225);
         chara0LifeBar.color = new Color32(192, 78, 78, 125);
