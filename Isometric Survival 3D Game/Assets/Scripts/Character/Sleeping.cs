@@ -33,7 +33,7 @@ public class Sleeping : MonoBehaviour
     public void Sleep()
     {
         days++;
-        daysText.text = "days here: " + days;
+        daysText.text = "day " + days;
 
         for (int i = 0; i < 2; i++)
         {
