@@ -9,6 +9,7 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] GameObject[] cameras;
     [SerializeField] PathDrawing pathDrawing;
     TimeManager timeManager;
+    public GUIManager GUIManager;
 
     private void Start()
     {
@@ -31,8 +32,13 @@ public class CharacterManager : MonoBehaviour
         if (currentCharacter == 0)
         {
             currentCharacter = 1;
+            GUIManager.setActiveCharacter1();
         }
-        else currentCharacter = 0;
+        else
+        {
+            currentCharacter = 0;
+            GUIManager.setActiveCharacter0();
+        }
 
         cameras[0].SetActive(currentCharacter == 0);
         cameras[1].SetActive(currentCharacter == 1);
