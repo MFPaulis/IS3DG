@@ -16,7 +16,7 @@ public class AnimalMovement : MonoBehaviour
     {
         pathFinding = FindObjectOfType<PathFinding>();
         map = FindObjectOfType<Map>();
-        //animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     public int GetX()
@@ -77,17 +77,18 @@ public class AnimalMovement : MonoBehaviour
         }
         else
         {
-            //animator.SetBool("isWalking", false);
+            animator.SetBool("isWalking", false);
             isMoving = false;
         }
     }
 
     private void Rotate(Vector3 newPosition)
     {
-        //Vector3 movementDirection = new Vector3((newPosition.x - transform.position.x), 0, (newPosition.z - transform.position.z));
-        //movementDirection.Normalize();
-        //transform.forward = movementDirection;
-        //animator.SetBool("isWalking", true);
+        Debug.Log("Rotate");
+        Vector3 movementDirection = new Vector3((newPosition.x - transform.position.x), 0, (newPosition.z - transform.position.z));
+        movementDirection.Normalize();
+        transform.forward = movementDirection;
+        animator.SetBool("isWalking", true);
     }
 
     public bool IsMoving()
