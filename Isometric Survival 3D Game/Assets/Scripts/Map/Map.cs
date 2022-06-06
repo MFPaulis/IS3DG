@@ -191,5 +191,6 @@ public class Map : MonoBehaviour
         blocks[x, z].GetComponent<Node>().walkable = false;
 
         help.ShowHelp(5);
+        help.ShowHelp(7);
     }
 }

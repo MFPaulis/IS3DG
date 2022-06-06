@@ -18,6 +18,7 @@ public class Help : MonoBehaviour
         for (int i = 0; i < helpPictures.Count; i++)
             helpShown.Add(false);
         ShowHelp(0);
+        ShowHelp(6);
     }
 
     void Update()
