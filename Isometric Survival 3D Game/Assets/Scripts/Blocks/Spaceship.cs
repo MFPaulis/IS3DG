@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Spaceship : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Spaceship : MonoBehaviour
     [SerializeField] static float [] energyCost = { 50, 40, 30, 20 };
     [SerializeField] int removedParts = 1;
     [SerializeField] float requiredParts = 10;
+    [SerializeField] Image bar;
     int repairProgress;
     CharacterManager characterManager;
     CharacterMovement characterMovement;
@@ -34,6 +36,7 @@ public class Spaceship : MonoBehaviour
             repairProgress += removedParts;
             float percentage = repairProgress / requiredParts * 100;
             text.text = percentage + "%";
+            bar.fillAmount = repairProgress / requiredParts;
             readyToRepair = false;
             if (repairProgress >= requiredParts)
             {
