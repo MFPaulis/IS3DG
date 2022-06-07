@@ -11,11 +11,18 @@ public class CharacterManager : MonoBehaviour
     TimeManager timeManager;
     public GUIManager GUIManager;
 
+    GameObject circleChara1;
+    GameObject circleChara2;
+
     private void Start()
     {
         timeManager = FindObjectOfType<TimeManager>();
         cameras[0].SetActive(true);
         cameras[1].SetActive(false);
+
+        circleChara1 = GameObject.Find("Cicle1");
+        circleChara2 = GameObject.Find("Cicle2");
+        circleChara2.SetActive(false);
     }
 
     private void Update()
@@ -32,11 +39,15 @@ public class CharacterManager : MonoBehaviour
         if (currentCharacter == 0)
         {
             currentCharacter = 1;
+            circleChara1.SetActive(false);
+            circleChara2.SetActive(true);
             GUIManager.setActiveCharacter1();
         }
         else
         {
             currentCharacter = 0;
+            circleChara1.SetActive(true);
+            circleChara2.SetActive(false);
             GUIManager.setActiveCharacter0();
         }
 

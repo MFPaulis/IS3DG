@@ -7,6 +7,7 @@ public class Costs : MonoBehaviour
 {
     CharacterManager characterManager;
     CharacterMovement characterMovement;
+    Energy characterEnergy;
     Map map;
     [SerializeField] TextMeshProUGUI text;
 
@@ -14,6 +15,7 @@ public class Costs : MonoBehaviour
     {
         characterManager = FindObjectOfType<CharacterManager>();
         map = FindObjectOfType<Map>();
+        characterEnergy = characterManager.GetEnergy();
     }
 
     public void Clear()
@@ -47,7 +49,9 @@ public class Costs : MonoBehaviour
         characterMovement = characterManager.GetCharacterMovement();
         List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
         if (nodes == null) return 0;
-        return characterMovement.getEnergyCost() * (nodes.Count - 1);
+        float costs = characterMovement.getEnergyCost() * (nodes.Count - 1);
+        Debug.Log(characterMovement.getEnergyCost() - costs);
+        return costs;
     }
 
     public float GetCostOfAction(Block block)
