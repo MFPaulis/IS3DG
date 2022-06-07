@@ -9,7 +9,8 @@ public class Transparency : MonoBehaviour
 
     private void Start()
     {
-        popup.SetActive(false);
+        if(popup)
+            popup.SetActive(false);
     }
 
 
@@ -23,7 +24,8 @@ public class Transparency : MonoBehaviour
             float colorB = materials[i].GetColor("_Color").b;
             materials[i].color = new Color(colorR, colorG, colorB, 0.5f);
             materials[i].SetFloat("_Opacity", 0.5f);
-            popup.SetActive(true);
+            if (popup)
+                popup.SetActive(true);
         }
     }
 
@@ -38,7 +40,8 @@ public class Transparency : MonoBehaviour
             float colorB = materials[i].GetColor("_Color").b;
             materials[i].color = new Color(colorR, colorG, colorB, 1.0f);
             materials[i].SetFloat("_Opacity", 1.0f);
-            popup.SetActive(false);
+            if (popup)
+                popup.SetActive(false);
         }
     }
 }
