@@ -25,6 +25,8 @@ public class Costs : MonoBehaviour
 
     public void ShowCosts(int x, int z, Block block)
     {
+        characterEnergy = characterManager.GetEnergy();
+
         float costOfMoving = GetCostOfMoving(x, z);
         float costOfAction = GetCostOfAction(block);
         string actionString;
@@ -41,6 +43,12 @@ public class Costs : MonoBehaviour
         {
             actionString = "";
         }
+        float t = characterEnergy.GetEnergy() - (costOfMoving + costOfAction);
+
+        Debug.Log(t);
+
+        characterEnergy.setTempEnergy(t);
+
         text.text = "energy cost: " + costOfMoving.ToString() + actionString;
     }
 
@@ -50,7 +58,6 @@ public class Costs : MonoBehaviour
         List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
         if (nodes == null) return 0;
         float costs = characterMovement.getEnergyCost() * (nodes.Count - 1);
-        Debug.Log(characterMovement.getEnergyCost() - costs);
         return costs;
     }
 
@@ -82,5 +89,10 @@ public class Costs : MonoBehaviour
             return Spider.GetEnergyCost(characterManager.GetGatheringSkill());
         }
         else return 0;
+    }
+
+    public void resetCosts()
+    {
+        characterEnergy.setTempEnergy(characterEnergy.GetEnergy());
     }
 }
