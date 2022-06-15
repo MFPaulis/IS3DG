@@ -21,11 +21,15 @@ public class Equipment : MonoBehaviour
     [SerializeField] TextMeshProUGUI partsText;
     [SerializeField] TextMeshProUGUI foodText;
     [SerializeField] TextMeshProUGUI cookedFoodText;
+    public GameObject popupParent;
+    public Popup popupAdd;
+    private Animator popupAnimator;
 
 
     private void Start()
     {
         updateTexts();
+        popupAnimator = popupAdd.GetComponent<Animator>();
     }
     public void setToCampEquipment()
     {
@@ -40,6 +44,11 @@ public class Equipment : MonoBehaviour
         cookedFoodText.text = cookedFood.ToString();
     }
 
+    private void ActivateAnim()
+    {
+        popupParent.transform.position = transform.position + new Vector3(0, 1.5f, 0);
+        popupAnimator.SetBool("getNew", true);
+    }
     public void updateTexts()
     {
         UpdateWood();
@@ -76,6 +85,8 @@ public class Equipment : MonoBehaviour
     public void AddWood(int howMany)
     {
         wood += howMany;
+        popupAdd.changeSprite(ItemType.WOOD);
+        ActivateAnim();
         if (wood > maxWood) wood = maxWood;
         UpdateWood();
     }
@@ -96,6 +107,8 @@ public class Equipment : MonoBehaviour
     public void AddParts(int howMany)
     {
         parts += howMany;
+        popupAdd.changeSprite(ItemType.PARTS);
+        ActivateAnim();
         if (parts > maxParts) parts = maxParts;
         UpdateParts();
     }
@@ -116,6 +129,8 @@ public class Equipment : MonoBehaviour
     public void AddFood(int howMany)
     {
         food += howMany;
+        popupAdd.changeSprite(ItemType.FOOD);
+        ActivateAnim();
         if (food > maxFood) food = maxFood;
         UpdateFood();
     }
@@ -136,6 +151,8 @@ public class Equipment : MonoBehaviour
     public void AddCookedFood(int howMany)
     {
         cookedFood += howMany;
+        popupAdd.changeSprite(ItemType.COOKEDFOOD);
+        ActivateAnim();
         if (cookedFood > maxCookedFood) cookedFood = maxCookedFood;
         UpdateCookedFood();
     }
