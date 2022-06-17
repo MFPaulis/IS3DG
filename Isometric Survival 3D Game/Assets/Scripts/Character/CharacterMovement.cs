@@ -15,6 +15,7 @@ public class CharacterMovement : MonoBehaviour
     Sight sight;
     Map map;
     bool isMoving = false;
+    [SerializeField] int characterNumber;
 
     public bool isMouseOver = false;
 
@@ -26,7 +27,7 @@ public class CharacterMovement : MonoBehaviour
         map = FindObjectOfType<Map>();
         animator = GetComponentInChildren<Animator>();
         character = gameObject.transform.Find("character");
-
+        if (characterNumber == 1) character.gameObject.SetActive(false);
     }
 
     private void OnMouseEnter()

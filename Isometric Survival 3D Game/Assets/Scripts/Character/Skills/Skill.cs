@@ -16,7 +16,7 @@ public class Skill : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SkillSelection.skills[character, skillNumber] = 0;
+        //SkillSelection.skills[character, skillNumber] = 0;
     }
 
     public void UpdateSkill()

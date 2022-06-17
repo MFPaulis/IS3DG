@@ -145,5 +145,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433298b41ca706846a52be7553978744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyCost: 20
+  energyCost: 0
   woodCost: 5

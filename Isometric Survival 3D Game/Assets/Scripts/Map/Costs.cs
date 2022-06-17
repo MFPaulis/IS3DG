@@ -50,7 +50,7 @@ public class Costs : MonoBehaviour
         List<Node> nodes = characterMovement.FindPathFromCharacter(x, z);
         if (nodes == null) return 0;
         float costs = characterMovement.getEnergyCost() * (nodes.Count - 1);
-        Debug.Log(characterMovement.getEnergyCost() - costs);
+        //Debug.Log(characterMovement.getEnergyCost() - costs);
         return costs;
     }
 

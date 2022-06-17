@@ -16,9 +16,11 @@ public class Woods : MonoBehaviour
     [SerializeField] static float energyCost = 20;
     [SerializeField] int fallingSpeed = 5;
     [SerializeField] int addedWood = 2;
+    Tutorial tutorial;
 
     void Start()
     {
+        tutorial = FindObjectOfType<Tutorial>();
         map = FindObjectOfType<Map>();
         block = transform.parent.gameObject;
         characterManager = FindObjectOfType<CharacterManager>();
@@ -42,6 +44,10 @@ public class Woods : MonoBehaviour
             transform.Rotate(new Vector3(0, Random.Range(0, 360), 0));
             isFalling = true;
             Destroy(gameObject, 0.8f);
+            if (equipment.GetWood() >= 5)
+            {
+                tutorial.TutorialAction(9);
+            }
         }
     }
 

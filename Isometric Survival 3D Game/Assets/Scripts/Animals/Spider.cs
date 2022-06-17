@@ -19,9 +19,11 @@ public class Spider : Animal
     [SerializeField] int addedFood = 3;
     [SerializeField] int decreasedLife = 30;
     bool readyToAttack;
+    Tutorial tutorial;
 
     private void Start()
     {
+        tutorial = FindObjectOfType<Tutorial>();
         animalManager = FindObjectOfType<AnimalManager>();
         animalMovement = GetComponent<AnimalMovement>();
         map = FindObjectOfType<Map>();
@@ -39,6 +41,16 @@ public class Spider : Animal
             int rnd = Random.Range(0, 2);
             GetComponent<AudioSource>().Play();
             energy.DecreaseEnergy(currentEnergyCost);
+            if (tutorial.GetStage() == 15)
+            {
+                rnd = 1;
+                tutorial.TutorialAction(15);
+            }
+            if (tutorial.GetStage() == 14)
+            {
+                rnd = 0;
+                tutorial.TutorialAction(14);
+            }
             if (rnd == 0)
             {
                 life.DecreaseLife(decreasedLife);

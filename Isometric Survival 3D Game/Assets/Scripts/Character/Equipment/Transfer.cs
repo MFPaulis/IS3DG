@@ -12,6 +12,7 @@ public class Transfer : MonoBehaviour
     int sender;
     int receiver;
     ItemType itemType;
+    Tutorial tutorial;
 
     public static Transfer Instance;
 
@@ -23,6 +24,7 @@ public class Transfer : MonoBehaviour
     private void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
+        tutorial = FindObjectOfType<Tutorial>();
         gameObject.SetActive(false);
     }
 
@@ -71,12 +73,17 @@ public class Transfer : MonoBehaviour
             case ItemType.WOOD:
                 senderEquipment.RemoveWood(numberOfItems);
                 receiverEquipment.AddWood(numberOfItems);
+                if (receiverEquipment.GetWood() >= 5)
+                {
+                    tutorial.TutorialAction(9);
+                }
                 break;
             case ItemType.PARTS:
                 senderEquipment.RemoveParts(numberOfItems);
                 receiverEquipment.AddParts(numberOfItems);
                 break;
             case ItemType.FOOD:
+                tutorial.TutorialAction(7);
                 senderEquipment.RemoveFood(numberOfItems);
                 receiverEquipment.AddFood(numberOfItems);
                 break;

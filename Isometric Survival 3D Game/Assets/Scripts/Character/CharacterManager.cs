@@ -10,12 +10,14 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] PathDrawing pathDrawing;
     TimeManager timeManager;
     public GUIManager GUIManager;
+    Tutorial tutorial;
 
     GameObject circleChara1;
     GameObject circleChara2;
 
     private void Start()
     {
+        tutorial = FindObjectOfType<Tutorial>();
         timeManager = FindObjectOfType<TimeManager>();
         cameras[0].SetActive(true);
         cameras[1].SetActive(false);
@@ -30,7 +32,7 @@ public class CharacterManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && timeManager.IsDay())
         {
             pathDrawing.ErasePath();
-            changeCharacter();
+            if(tutorial.GetStage() >= 6) changeCharacter();
         }
     }
 

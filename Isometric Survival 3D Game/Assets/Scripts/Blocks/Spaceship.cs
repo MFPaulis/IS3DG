@@ -20,9 +20,11 @@ public class Spaceship : MonoBehaviour
     Equipment equipment;
     bool readyToRepair;
     float currentEnergyCost;
+    Tutorial tutorial;
 
     private void Start()
     {
+        tutorial = FindObjectOfType<Tutorial>();
         characterManager = FindObjectOfType<CharacterManager>();
     }
 
@@ -38,6 +40,7 @@ public class Spaceship : MonoBehaviour
             text.text = percentage + "%";
             bar.fillAmount = repairProgress / requiredParts;
             readyToRepair = false;
+            tutorial.TutorialAction(17);
             if (repairProgress >= requiredParts)
             {
                 SceneManager.LoadScene("Win");

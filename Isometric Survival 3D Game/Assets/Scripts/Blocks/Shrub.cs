@@ -22,9 +22,12 @@ public class Shrub : MonoBehaviour
     [SerializeField] int addedWood = 1;
     [SerializeField] int daysToGrow = 6;
     [SerializeField] AudioClip audioClip;
+    Tutorial tutorial;
+
     // Start is called before the first frame update
     void Start()
     {
+        tutorial = FindObjectOfType<Tutorial>();
         map = FindObjectOfType<Map>();
         berries = gameObject.transform.GetChild(0).gameObject;
         characterManager = FindObjectOfType<CharacterManager>();
@@ -40,6 +43,7 @@ public class Shrub : MonoBehaviour
     {
         if (readyToGatherOrCut && !characterMovement.IsMoving())
         {
+            tutorial.TutorialAction(4);
             AudioSource.PlayClipAtPoint(audioClip, characterManager.GetCamera().transform.position, 1);
             energy.DecreaseEnergy(currentEnergyCost);
             if (berries.activeSelf)

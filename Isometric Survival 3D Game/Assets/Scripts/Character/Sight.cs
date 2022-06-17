@@ -15,11 +15,11 @@ public class Sight : MonoBehaviour
         map = FindObjectOfType<Map>();
         characterMovement = gameObject.GetComponent<CharacterMovement>();
         CharacterManager characterManager = FindObjectOfType<CharacterManager>();
-        sightLevel = SkillSelection.skills[characterNumber, 0];
     }
 
     public void LookAround()
     {
+        sightLevel = SkillSelection.skills[characterNumber, 0];
         charX = characterMovement.GetX();
         charZ = characterMovement.GetZ();
         if (sightLevel >= 1)

@@ -16,10 +16,11 @@ public class Parts : MonoBehaviour
     [SerializeField] static float [] energyCost = { 50, 40, 30, 20 };
     [SerializeField] int addedParts = 1;
     [SerializeField] AudioClip audioClip;
-
+    Tutorial tutorial;
 
     void Start()
     {
+        tutorial = FindObjectOfType<Tutorial>();
         map = FindObjectOfType<Map>();
         block = transform.parent.gameObject;
         characterManager = FindObjectOfType<CharacterManager>();
@@ -35,6 +36,7 @@ public class Parts : MonoBehaviour
             AudioSource.PlayClipAtPoint(audioClip, characterManager.GetCamera().transform.position, 1);
             energy.DecreaseEnergy(currentEnergyCost);
             equipment.AddParts(addedParts);
+            tutorial.TutorialAction(1);
             Destroy(gameObject);
         }
     }

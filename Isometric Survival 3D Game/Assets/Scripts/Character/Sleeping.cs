@@ -16,12 +16,14 @@ public class Sleeping : MonoBehaviour
     [SerializeField] float decreasedLife = 40;
     [SerializeField] TextMeshProUGUI daysText;
     int days = 0;
+    Tutorial tutorial;
 
     // Start is called before the first frame update
     void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
         map = FindObjectOfType<Map>();
+        tutorial = FindObjectOfType<Tutorial>();
     }
 
     // Update is called once per frame
@@ -32,6 +34,7 @@ public class Sleeping : MonoBehaviour
 
     public void Sleep()
     {
+        tutorial.TutorialAction(2);
         days++;
         daysText.text = "day " + days;
 
@@ -44,6 +47,7 @@ public class Sleeping : MonoBehaviour
             if(block.GetComponent<Tent>())
             {
                 energy.IncreaseEnergy(energyInside);
+                tutorial.TutorialAction(12);
             } else
             {
                 energy.IncreaseEnergy(energyOutside);

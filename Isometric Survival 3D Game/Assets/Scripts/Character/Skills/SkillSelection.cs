@@ -15,9 +15,23 @@ public class SkillSelection : MonoBehaviour
             summary[character] += skills[character, i];
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    public static void SetStartingSkills()
+    {
+        skills[0, 0] = 0;
+        skills[0, 1] = 2;
+        skills[0, 2] = 2;
+        skills[0, 3] = 1;
+        skills[1, 0] = 1;
+        skills[1, 1] = 1;
+        skills[1, 2] = 1;
+        skills[1, 3] = 2;
+    }
+
+    public static void ResetSkills()
+    {
+        for (int i = 0; i < 2; i++)
+            for(int j= 0; j < 4; j++)
+                skills[i, j] = 0;
     }
 }

@@ -14,10 +14,12 @@ public class Campfire : MonoBehaviour
     [SerializeField] static float [] energyCost = { 40, 30, 20, 10 };
     [SerializeField] int removedFood = 1;
     [SerializeField] int addedCookedFood = 1;
+    Tutorial tutorial;
 
     // Start is called before the first frame update
     void Start()
     {
+        tutorial = FindObjectOfType<Tutorial>();
         characterManager = FindObjectOfType<CharacterManager>();
         Node node = gameObject.GetComponent<Node>();
         x = node.x;
@@ -34,6 +36,7 @@ public class Campfire : MonoBehaviour
             equipment.RemoveFood(removedFood);
             equipment.AddCookedFood(addedCookedFood);
             readyToCook = false;
+            tutorial.TutorialAction(11);
         }
     }
 

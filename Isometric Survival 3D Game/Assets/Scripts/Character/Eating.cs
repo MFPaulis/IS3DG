@@ -9,11 +9,13 @@ public class Eating : MonoBehaviour
     Life life;
     [SerializeField] float increasedLifeFood = 100;
     [SerializeField] float increasedLifeCookedFood = 200;
+    Tutorial tutorial;
 
     // Start is called before the first frame update
     void Start()
     {
         characterManager = FindObjectOfType<CharacterManager>();
+        tutorial = FindObjectOfType<Tutorial>();
     }
 
     // Update is called once per frame
@@ -28,6 +30,8 @@ public class Eating : MonoBehaviour
         equipment = characterManager.GetEquipment();
         if (equipment.GetFood() > 0)
         {
+            tutorial.TutorialAction(5);
+            tutorial.TutorialAction(8);
             GetComponent<AudioSource>().Play();
             equipment.RemoveFood(1);
             life.IncreaseLife(increasedLifeFood);
