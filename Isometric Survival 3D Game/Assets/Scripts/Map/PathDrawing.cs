@@ -46,10 +46,14 @@ public class PathDrawing : MonoBehaviour
                 {
                     int x = hitObject.GetComponent<Node>().x;
                     int z = hitObject.GetComponent<Node>().z;
+                    /*
                     if (hitObject.GetComponent<Block>().GetBType() == BlockType.Secret)
                     {
                         hitObject.GetComponent<Block>().BlockClicked();
-                    } else if (pathShowed && xGoal == x && zGoal == z)
+                    }
+                    else
+                    */
+                    if (pathShowed && xGoal == x && zGoal == z)
                     {
                         hitObject.GetComponent<Block>().BlockClicked();
                         ErasePath();
@@ -100,7 +104,13 @@ public class PathDrawing : MonoBehaviour
             {
                 GameObject block = map.GetBlock(node.x, node.z);
                 Material[] materials = block.GetComponent<Renderer>().materials;
+
+                if (block.GetComponent<Block>().GetBType() == BlockType.Secret)
+                {
+                    materials[0].color = new Color(0.6f, 1f, 0.6f, 1);
+                }
                 materials[1].color = new Color(0.6f, 1f, 0.6f, 1);
+
             }
             if (map.GetBlock(x,z).GetComponent<Block>().GetBType() == BlockType.Spaceship)
             {
@@ -119,7 +129,16 @@ public class PathDrawing : MonoBehaviour
             {
                 GameObject block = map.GetBlock(node.x, node.z);
                 Material[] materials = block.GetComponent<Renderer>().materials;
-                materials[1].color = new Color(0.87f, 0.97f, 1, 1);
+                if (block.GetComponent<Block>().GetBType() == BlockType.Secret)
+                {
+                    materials[1].color = new Color32(154, 154, 154, 150);
+                    materials[0].color = new Color32(154, 154, 154, 150);
+                }
+                else
+                {
+                    materials[1].color = new Color(0.87f, 0.97f, 1, 1);
+                }
+
             }
             nodes.Clear();
             if (spaceshipDrawn)
@@ -127,6 +146,7 @@ public class PathDrawing : MonoBehaviour
                 EraseSpaceship();
             }
         }
+        costs.resetCosts();
         pathShowed = false;
     }
 

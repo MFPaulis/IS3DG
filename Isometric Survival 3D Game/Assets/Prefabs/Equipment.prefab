@@ -228,6 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: 0
   itemType: 0
+  eating: {fileID: 0}
 --- !u!225 &6480345063684274574
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -898,6 +899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: 0
   itemType: 0
+  eating: {fileID: 0}
 --- !u!225 &5494876036455056532
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1002,6 +1004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: 0
   itemType: 0
+  eating: {fileID: 0}
 --- !u!225 &2378855698028716627
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1106,6 +1109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: 0
   itemType: 0
+  eating: {fileID: 0}
 --- !u!225 &1561452329941357333
 CanvasGroup:
   m_ObjectHideFlags: 0

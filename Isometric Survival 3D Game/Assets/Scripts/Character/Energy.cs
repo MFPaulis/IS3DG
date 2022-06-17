@@ -24,8 +24,12 @@ public class Energy : MonoBehaviour
     {
         float percentage = energy / maxEnergy * 100;
         text.text = percentage + "%";
+        if(tempEnergy > energy)
+        {
+            tempEnergy = energy;
+        }
         EnergyBarFiller();
-        //EnergyLessBarFiller();
+        EnergyLessBarFiller();
         lerpSpeed = speed * Time.deltaTime;
     }
 
@@ -41,7 +45,7 @@ public class Energy : MonoBehaviour
 
     void EnergyBarFiller()
     {
-        bar.fillAmount = Mathf.Lerp(bar.fillAmount, (energy / maxEnergy), lerpSpeed);
+        bar.fillAmount = Mathf.Lerp(bar.fillAmount, (tempEnergy / maxEnergy), lerpSpeed);
     }
 
     public void setTempEnergy(float e)

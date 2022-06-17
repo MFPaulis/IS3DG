@@ -40,6 +40,7 @@ public class CharacterManager : MonoBehaviour
     {
         if (currentCharacter == 0)
         {
+            GetEnergy().setTempEnergy(GetEnergy().GetEnergy());
             currentCharacter = 1;
             circleChara1.SetActive(false);
             circleChara2.SetActive(true);
@@ -47,6 +48,7 @@ public class CharacterManager : MonoBehaviour
         }
         else
         {
+            GetEnergy().setTempEnergy(GetEnergy().GetEnergy());
             currentCharacter = 0;
             circleChara1.SetActive(true);
             circleChara2.SetActive(false);
