@@ -21,15 +21,28 @@ public class Equipment : MonoBehaviour
     [SerializeField] TextMeshProUGUI partsText;
     [SerializeField] TextMeshProUGUI foodText;
     [SerializeField] TextMeshProUGUI cookedFoodText;
-    public GameObject popupParent;
     public Popup popupAdd;
+    public Popup popupRemove;
     private Animator popupAnimator;
+    private Animator popupAnimatorR;
 
 
     private void Start()
     {
         updateTexts();
+
+        if(popupAdd == null)
+        {
+            popupAdd = GameObject.Find("PopupAdd").GetComponent<Popup>();
+        }
+
+        if (popupRemove == null)
+        {
+            popupRemove = GameObject.Find("PopupRemove").GetComponent<Popup>();
+        }
+
         popupAnimator = popupAdd.GetComponent<Animator>();
+        popupAnimatorR = popupRemove.GetComponent<Animator>();
     }
     public void setToCampEquipment()
     {
@@ -44,10 +57,10 @@ public class Equipment : MonoBehaviour
         cookedFoodText.text = cookedFood.ToString();
     }
 
-    private void ActivateAnim()
+    private void ActivateAnim(Animator animator)
     {
-        popupParent.transform.position = transform.position + new Vector3(0, 1.5f, 0);
-        popupAnimator.SetBool("getNew", true);
+        animator.transform.parent.transform.position = transform.position + new Vector3(0, 1.5f, 0);
+        animator.SetBool("getNew", true);
     }
     public void updateTexts()
     {
@@ -86,7 +99,7 @@ public class Equipment : MonoBehaviour
     {
         wood += howMany;
         popupAdd.changeSprite(ItemType.WOOD);
-        ActivateAnim();
+        ActivateAnim(popupAnimator);
         if (wood > maxWood) wood = maxWood;
         UpdateWood();
     }
@@ -95,6 +108,8 @@ public class Equipment : MonoBehaviour
     {
         if (wood - howMany < 0) return false;
         wood -= howMany;
+        popupRemove.changeSprite(ItemType.WOOD);
+        ActivateAnim(popupAnimatorR);
         UpdateWood();
         return true;
     }
@@ -108,7 +123,7 @@ public class Equipment : MonoBehaviour
     {
         parts += howMany;
         popupAdd.changeSprite(ItemType.PARTS);
-        ActivateAnim();
+        ActivateAnim(popupAnimator);
         if (parts > maxParts) parts = maxParts;
         UpdateParts();
     }
@@ -117,6 +132,8 @@ public class Equipment : MonoBehaviour
     {
         if (parts - howMany < 0) return false;
         parts -= howMany;
+        popupRemove.changeSprite(ItemType.PARTS);
+        ActivateAnim(popupAnimatorR);
         UpdateParts();
         return true;
     }
@@ -130,7 +147,7 @@ public class Equipment : MonoBehaviour
     {
         food += howMany;
         popupAdd.changeSprite(ItemType.FOOD);
-        ActivateAnim();
+        ActivateAnim(popupAnimator);
         if (food > maxFood) food = maxFood;
         UpdateFood();
     }
@@ -139,6 +156,8 @@ public class Equipment : MonoBehaviour
     {
         if (food - howMany < 0) return false;
         food -= howMany;
+        popupRemove.changeSprite(ItemType.FOOD);
+        ActivateAnim(popupAnimatorR);
         UpdateFood();
         return true;
     }
@@ -152,7 +171,7 @@ public class Equipment : MonoBehaviour
     {
         cookedFood += howMany;
         popupAdd.changeSprite(ItemType.COOKEDFOOD);
-        ActivateAnim();
+        ActivateAnim(popupAnimator);
         if (cookedFood > maxCookedFood) cookedFood = maxCookedFood;
         UpdateCookedFood();
     }
@@ -161,6 +180,8 @@ public class Equipment : MonoBehaviour
     {
         if (cookedFood - howMany < 0) return false;
         cookedFood -= howMany;
+        popupRemove.changeSprite(ItemType.COOKEDFOOD);
+        ActivateAnim(popupAnimatorR);
         UpdateCookedFood();
         return true;
     }
