@@ -1370,6 +1370,7 @@ GameObject:
   - component: {fileID: 279452021}
   - component: {fileID: 279452023}
   - component: {fileID: 279452022}
+  - component: {fileID: 279452024}
   m_Layer: 5
   m_Name: profile
   m_TagString: Untagged
@@ -1435,6 +1436,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 279452020}
   m_CullTransparentMesh: 1
+--- !u!114 &279452024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279452020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1c55c5f4326a54a984e808daa86a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMouseOver: 0
 --- !u!1 &293615675 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8102761425934262483, guid: 1f78ddaa8394bdb438a8eb6423306910, type: 3}
@@ -1465,7 +1479,6 @@ MonoBehaviour:
   partsText: {fileID: 1130410775}
   foodText: {fileID: 2044249477}
   cookedFoodText: {fileID: 1014006866}
-  popupParent: {fileID: 767650624}
   popupAdd: {fileID: 1197677758}
   popupRemove: {fileID: 0}
 --- !u!65 &293615694
@@ -4280,6 +4293,9 @@ MonoBehaviour:
   - {fileID: 1806711276}
   - {fileID: 406912834}
   pathDrawing: {fileID: 537397651}
+  characterImages:
+  - {fileID: 990774634}
+  - {fileID: 279452024}
   GUIManager: {fileID: 174163883}
 --- !u!4 &810052262
 Transform:
@@ -5252,6 +5268,7 @@ GameObject:
   - component: {fileID: 990774631}
   - component: {fileID: 990774633}
   - component: {fileID: 990774632}
+  - component: {fileID: 990774634}
   m_Layer: 5
   m_Name: profile
   m_TagString: Untagged
@@ -5317,6 +5334,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990774630}
   m_CullTransparentMesh: 1
+--- !u!114 &990774634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990774630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1c55c5f4326a54a984e808daa86a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMouseOver: 0
 --- !u!1 &1000427727
 GameObject:
   m_ObjectHideFlags: 0
@@ -11047,7 +11077,6 @@ MonoBehaviour:
   partsText: {fileID: 375623797}
   foodText: {fileID: 33488835}
   cookedFoodText: {fileID: 273464931}
-  popupParent: {fileID: 767650624}
   popupAdd: {fileID: 1197677758}
   popupRemove: {fileID: 0}
 --- !u!65 &2946891679221201277

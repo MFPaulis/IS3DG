@@ -95,15 +95,15 @@ public class Item : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         gameObject.transform.SetParent(trueParent, true);
         canvasGroup.blocksRaycasts = true;
         transform.position = startPos;
-
+        CharacterImage charImage = characterManager.GetCharacterImage();
         switch(owner)
         {
             case 0:
-                if (charMov0.isMouseOver)
+                if (charImage.isMouseOver && owner == characterManager.GetCurrentCharacter())
                     eatItem();
                 break;
             case 1:
-                if (charMov1.isMouseOver)
+                if (charImage.isMouseOver && owner == characterManager.GetCurrentCharacter())
                     eatItem();
                 break;
             default:

@@ -8,6 +8,7 @@ public class CharacterManager : MonoBehaviour
     public GameObject[] characters;
     [SerializeField] GameObject[] cameras;
     [SerializeField] PathDrawing pathDrawing;
+    [SerializeField] CharacterImage[] characterImages;
     TimeManager timeManager;
     public GUIManager GUIManager;
     Tutorial tutorial;
@@ -102,6 +103,16 @@ public class CharacterManager : MonoBehaviour
     public Equipment GetEquipment()
     {
         return characters[currentCharacter].GetComponent<Equipment>();
+    }
+
+    public CharacterImage GetCharacterImage()
+    {
+        return characterImages[currentCharacter];
+    }
+
+    public int GetCurrentCharacter()
+    {
+        return currentCharacter;
     }
 
 }
